@@ -22,13 +22,11 @@ clock = pygame.time.Clock()
 pygame.init()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-screen.fill(INITIAL_COLOR)
 
 player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
-screen.blit(player.surf, player.rect)
 
 while running:
-    clock.tick(30)
+    clock.tick(40)
 
     for event in pygame.event.get():
         if event.type == KEYDOWN:
@@ -36,6 +34,13 @@ while running:
                 running = False
         elif event.type == QUIT:
             running = False
+
+    player.update(pygame.key.get_pressed())
+
+    ## DRAW on screen 
+    #in the loop and first or else objects will appear to grow
+    screen.fill(INITIAL_COLOR)
+    screen.blit(player.surf, player.rect)
 
     pygame.display.flip()
 
