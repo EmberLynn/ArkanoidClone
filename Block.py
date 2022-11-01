@@ -23,3 +23,11 @@ class Block(pygame.sprite.Sprite):
         #block to be random colour
         self.colour = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
         self.surf.fill(self.colour)
+
+        #draw random area for now -- need to implement no overlap with existing
+        self.rect = self.surf.get_rect(
+            center=(
+                random.randint(75, (screen_width-75)),
+                random.randint(25, (screen_height-50))
+            )
+        )

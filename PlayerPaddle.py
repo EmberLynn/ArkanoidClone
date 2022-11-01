@@ -21,7 +21,7 @@ class PlayerPaddle(pygame.sprite.Sprite):
         self.surf.fill((255,255,255))
         self.rect = self.surf.get_rect(
             center = (
-                (screen_width/2),screen_height
+                (screen_width/2),(screen_height-15)
             )
         )
 
