@@ -40,6 +40,11 @@ while running:
         elif event.type == QUIT:
             running = False
 
+    if(ball.rect.x>SCREEN_WIDTH or ball.rect.x<0):
+        ball.velocity[0] = -ball.velocity[0]
+    if(ball.rect.y>SCREEN_HEIGHT or ball.rect.y<0):
+        ball.velocity[1] = -ball.velocity[1]
+
     player.update(pygame.key.get_pressed())
     ball.update()
     ## DRAW on screen 

@@ -14,7 +14,7 @@ class Ball(pygame.sprite.Sprite):
         self.colour = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
         self.surf.fill(self.colour)
 
-        self.velocity = [0,5]
+        self.velocity = [1,5]
 
         self.rect = self.surf.get_rect(
             center=((100,100))
