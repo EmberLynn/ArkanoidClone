@@ -1,6 +1,7 @@
 import pygame
 from PlayerPaddle import PlayerPaddle
 from Block import Block
+from Ball import Ball
 
 from pygame.locals import (
     RLEACCEL,
@@ -27,6 +28,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
 block = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
 block2 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
+ball = Ball()
 
 while running:
     clock.tick(40)
@@ -39,13 +41,14 @@ while running:
             running = False
 
     player.update(pygame.key.get_pressed())
-
+    ball.update()
     ## DRAW on screen 
     #in the loop and first or else objects will appear to grow
     screen.fill(INITIAL_COLOR)
     screen.blit(player.surf, player.rect)
     screen.blit(block.surf, block.rect)
     screen.blit(block2.surf, block2.rect)
+    screen.blit(ball.surf, ball.rect)
 
     pygame.display.flip()
 
