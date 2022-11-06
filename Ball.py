@@ -14,12 +14,22 @@ class Ball(pygame.sprite.Sprite):
         self.colour = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
         self.surf.fill(self.colour)
 
-        self.velocity = [1,5]
+        self.velocity = [2,5]
 
         self.rect = self.surf.get_rect(
             center=((100,100))
         )
 
-    def update(self):
+    def update(self, screen_width, screen_height):
+        if(self.rect.x>screen_width or self.rect.x<0):
+                self.velocity[0] = -self.velocity[0]
+        if(self.rect.y>screen_height or self.rect.y<0):
+            self.velocity[1] = -self.velocity[1]
+
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
+
+    # not good for hitting top or side of block
+    def bounce(self):
+        self.velocity[0] = -self.velocity[0]
+        self.velocity[1] = random.randint(4,6)

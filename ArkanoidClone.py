@@ -28,7 +28,22 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
 block = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
 block2 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
+block3 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
+block4 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
+
 ball = Ball()
+
+blocks = pygame.sprite.Group()
+blocks.add(block)
+blocks.add(block2)
+blocks.add(block3)
+blocks.add(block4)
+
+all_sprites = pygame.sprite.Group()
+all_sprites.add(player)
+all_sprites.add(ball)
+
+all_sprites.add(blocks)
 
 while running:
     clock.tick(40)
@@ -40,20 +55,32 @@ while running:
         elif event.type == QUIT:
             running = False
 
-    if(ball.rect.x>SCREEN_WIDTH or ball.rect.x<0):
-        ball.velocity[0] = -ball.velocity[0]
-    if(ball.rect.y>SCREEN_HEIGHT or ball.rect.y<0):
-        ball.velocity[1] = -ball.velocity[1]
-
     player.update(pygame.key.get_pressed())
-    ball.update()
+    ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
+
     ## DRAW on screen 
     #in the loop and first or else objects will appear to grow
     screen.fill(INITIAL_COLOR)
-    screen.blit(player.surf, player.rect)
-    screen.blit(block.surf, block.rect)
-    screen.blit(block2.surf, block2.rect)
-    screen.blit(ball.surf, ball.rect)
+    
+    for object in all_sprites:
+        screen.blit(object.surf, object.rect)
+
+    blocks_hit = pygame.sprite.spritecollide(ball, blocks, False)
+    print(ball.rect)
+
+    for block in blocks_hit:
+        print(block.rect)
+
+        # use masks for collision? https://www.pygame.org/docs/ref/mask.html#pygame.mask.Mask.outline
+
+        blocktop = block.rect[0]
+        print(blocktop)
+
+        #<rect(687, 452, 75, 25)> block
+        #<rect(751, 445, 10, 10)> ball (when colliding with block)
+
+    # if pygame.sprite.spritecollideany(ball, blocks):
+    #     ball.bounce()
 
     pygame.display.flip()
 
