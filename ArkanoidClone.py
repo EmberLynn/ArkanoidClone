@@ -66,16 +66,17 @@ while running:
         screen.blit(object.surf, object.rect)
 
     blocks_hit = pygame.sprite.spritecollide(ball, blocks, False)
-    print(ball.rect)
 
     for block in blocks_hit:
-        print(block.rect)
-
+        print(block.rect.top)
         # use masks for collision? https://www.pygame.org/docs/ref/mask.html#pygame.mask.Mask.outline
 
-        blocktop = block.rect[0]
-        print(blocktop)
+        # overlap = pygame.mask.Mask.overlap(block.mask,ball.rect.bottom)
+        # if(overlap[0] == block.top):
+        #     ball.bounce()
 
+        #collidepoint?
+        
         #<rect(687, 452, 75, 25)> block
         #<rect(751, 445, 10, 10)> ball (when colliding with block)
 

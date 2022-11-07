@@ -31,3 +31,5 @@ class Block(pygame.sprite.Sprite):
                 random.randint(25, (screen_height-50))
             )
         )
+
+        self.mask = pygame.mask.from_surface(self.surf)

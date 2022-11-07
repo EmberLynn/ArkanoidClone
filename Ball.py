@@ -20,6 +20,8 @@ class Ball(pygame.sprite.Sprite):
             center=((100,100))
         )
 
+        self.mask = pygame.mask.from_surface(self.surf)
+
     def update(self, screen_width, screen_height):
         if(self.rect.x>screen_width or self.rect.x<0):
                 self.velocity[0] = -self.velocity[0]
