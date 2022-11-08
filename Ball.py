@@ -32,6 +32,10 @@ class Ball(pygame.sprite.Sprite):
         self.rect.y += self.velocity[1]
 
     # not good for hitting top or side of block
-    def bounce(self):
-        self.velocity[0] = -self.velocity[0]
-        self.velocity[1] = random.randint(4,6)
+    def bounce(self, area_hit):
+
+        #top or bottom hit
+        if(area_hit == "top_or_bottom"):
+            self.velocity[1] = -self.velocity[1]
+        if(area_hit == "sides"):
+            self.velocity[0] = -self.velocity[0]

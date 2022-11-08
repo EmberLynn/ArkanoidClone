@@ -69,6 +69,12 @@ while running:
 
     for block in blocks_hit:
         print(block.rect.top)
+        print(ball.rect.bottom)
+        if(ball.rect.bottom > block.rect.top or ball.rect.top < ball.rect.bottom):
+            ball.bounce("top_or_bottom")
+
+        #problem still is the above is always checked, so how to detect when it is side hit instead?
+        
         # use masks for collision? https://www.pygame.org/docs/ref/mask.html#pygame.mask.Mask.outline
 
         # overlap = pygame.mask.Mask.overlap(block.mask,ball.rect.bottom)
