@@ -68,10 +68,16 @@ while running:
     blocks_hit = pygame.sprite.spritecollide(ball, blocks, False)
 
     for block in blocks_hit:
-        print(block.rect.top)
-        print(ball.rect.bottom)
-        if(ball.rect.bottom > block.rect.top or ball.rect.top < ball.rect.bottom):
+
+        x_offset = block.rect.x - ball.rect.left
+        y_offset = block.rect.y - ball.rect.top
+        location = ball.mask.overlap(block.mask,(x_offset,y_offset))
+        print(location)
+        if(location[0] == 0):
             ball.bounce("top_or_bottom")
+        else:
+            ball.bounce("sides")
+        
 
         #problem still is the above is always checked, so how to detect when it is side hit instead?
         
