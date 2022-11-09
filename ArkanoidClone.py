@@ -68,18 +68,31 @@ while running:
     blocks_hit = pygame.sprite.spritecollide(ball, blocks, False)
 
     for block in blocks_hit:
+        # block is 75 X 25
 
-        x_offset = block.rect.x - ball.rect.left
-        y_offset = block.rect.y - ball.rect.top
-        location = ball.mask.overlap(block.mask,(x_offset,y_offset))
+        x_offset = ball.rect.x - block.rect.x
+        y_offset = ball.rect.y - block.rect.y
+        location = block.mask.overlap(ball.mask,(x_offset,y_offset))
         print(location)
-        if(location[0] == 0):
-            ball.bounce("top_or_bottom")
-        else:
-            ball.bounce("sides")
         
+        if(location[1] == 0): # check for y min
+            ball.bounce("top_or_bottom")
+            print(location)
+            print("top hit")
+        elif(location[1] == 24): # check for y max
+            ball.bounce("top_or_bottom")
+            print(location)
+            print("bottom hit")
+        elif(location[0] == 0): # check for x min
+            ball.bounce("sides")
+            print(location)
+            print("right hit")
+        elif(location[0] == 74): # check for x max
+            ball.bounce("sides")
+            print(location)
+            print("left hit")
 
-        #problem still is the above is always checked, so how to detect when it is side hit instead?
+        # problem still is the above is always checked, so how to detect when it is side hit instead?
         
         # use masks for collision? https://www.pygame.org/docs/ref/mask.html#pygame.mask.Mask.outline
 
