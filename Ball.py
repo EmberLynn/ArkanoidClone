@@ -37,5 +37,13 @@ class Ball(pygame.sprite.Sprite):
         #top or bottom hit
         if(area_hit == "top_or_bottom"):
             self.velocity[1] = -self.velocity[1]
+            if(self.velocity[0] < 0):
+                self.velocity[0] = -random.randint(2,5)
+            else:
+                self.velocity[0] = random.randint(2,5)
         if(area_hit == "sides"):
             self.velocity[0] = -self.velocity[0]
+            if(self.velocity[1] < 0):
+                self.velocity[1] = -random.randint(2,5)
+            else:
+                self.velocity[1] = random.randint(2,5)
