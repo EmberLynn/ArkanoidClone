@@ -13,6 +13,7 @@ from pygame.locals import (
     KEYDOWN,
     QUIT
 )
+pygame.init()
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -21,17 +22,18 @@ INITIAL_COLOR = (0, 102, 34)
 running = True
 clock = pygame.time.Clock()
 
-pygame.init()
+playerScore = 0
+myfont = pygame.font.SysFont("Good Times Regular", 25, True)
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
+playerGroup = pygame.sprite.GroupSingle(player)
+
 block = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
 block2 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
 block3 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
 block4 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
-
-ball = Ball()
 
 blocks = pygame.sprite.Group()
 blocks.add(block)
@@ -39,10 +41,11 @@ blocks.add(block2)
 blocks.add(block3)
 blocks.add(block4)
 
+ball = Ball()
+
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 all_sprites.add(ball)
-
 all_sprites.add(blocks)
 
 while running:
@@ -55,16 +58,25 @@ while running:
         elif event.type == QUIT:
             running = False
 
-    player.update(pygame.key.get_pressed())
+    player.update(pygame.key.get_pressed(), SCREEN_WIDTH)
     ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
 
     ## DRAW on screen 
     #in the loop and first or else objects will appear to grow
     screen.fill(INITIAL_COLOR)
-    
+
     for object in all_sprites:
         screen.blit(object.surf, object.rect)
 
+    score = myfont.render("Score: " + str(playerScore), 1, (255,255,0))
+    screen.blit(score, (SCREEN_WIDTH-100, 50))
+
+    #------------------paddle hit-----------------------------------------------
+    if(pygame.sprite.spritecollide(ball, playerGroup, False)):
+        ball.bounce("top_or_bottom")
+    #---------------------------------------------------------------------------
+
+    #------------------block hits-----------------------------------------------
     blocks_hit = pygame.sprite.spritecollide(ball, blocks, False)
 
     for block in blocks_hit:
@@ -95,6 +107,10 @@ while running:
                     ball.bounce("sides")
             else:
                 print("failed to register hit")
+
+            playerScore += 10
+            block.kill()
+    #------------------------------------------------------------------------------
 
     pygame.display.flip()
 
