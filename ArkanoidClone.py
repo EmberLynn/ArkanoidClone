@@ -2,6 +2,7 @@ import pygame
 from PlayerPaddle import PlayerPaddle
 from Block import Block
 from Ball import Ball
+from LevelRenderer import LevelRenderer
 
 from pygame.locals import (
     RLEACCEL,
@@ -15,9 +16,11 @@ from pygame.locals import (
 )
 pygame.init()
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-INITIAL_COLOR = (0, 102, 34)
+LevelRenderer = LevelRenderer()
+
+SCREEN_WIDTH = LevelRenderer.screen_width
+SCREEN_HEIGHT = LevelRenderer.screen_height
+INITIAL_COLOR = LevelRenderer.level_color
 
 running = True
 clock = pygame.time.Clock()
@@ -69,7 +72,7 @@ while running:
         screen.blit(object.surf, object.rect)
 
     score = myfont.render("Score: " + str(playerScore), 1, (255,255,0))
-    screen.blit(score, (SCREEN_WIDTH-100, 50))
+    screen.blit(score, (SCREEN_WIDTH-120, 25))
 
     #------------------paddle hit-----------------------------------------------
     if(pygame.sprite.spritecollide(ball, playerGroup, False)):
