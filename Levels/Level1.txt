@@ -1,23 +1,34 @@
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
-##########
+Duplicate this file and fill in all listed variables with desired output for level design.
+The dashed lines are a visual representation of how the blocks layout in the level will look.
+Row and column totals are abstracted from the visual. If block width, height, and level width and height
+are not compatible (that many blocks can't fit as that many columns considering the width of the screen!),
+a (helpful) error will be throw.
+
+#blocks_section
+--BBBBBB--
+B--------B
+----------
+----------
+----------
+--BBBBBB--
+----------
+----B-----
+----------
+BB--BB--BB
+----------
+----BBB---
+-BB-------
+----------
+-------BB-
+BBBBBBBBBB
+----------
+-BBBBB----
+----------
+---B--BBB-
+#end_of_blocks
+
 SCREEN_WIDTH=800
 SCREEN_HEIGHT=600
 LEVEL_COLOR=0,102,34
+BRICK_WIDTH=75
+BRICK_HIEGHT=25

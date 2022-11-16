@@ -18,10 +18,14 @@ full_path = os.path.join(absolute_path, relative_path)
 class LevelRenderer:
     def __init__(self):
 
+        self.blocks = pygame.sprite.Group()
         # reading one file for now
         # final intent is to read all levels in the level folder
+        block_section = False
         file = open(full_path + "\Level1.txt", "r")
         for line in file:
+            
+            # handle general properties  
             if('SCREEN_WIDTH' in line):
                 self.screen_width = int(''.join(filter(str.isdigit,line)))
             elif('SCREEN_HEIGHT' in line):
@@ -29,4 +33,16 @@ class LevelRenderer:
             elif('LEVEL_COLOR' in line):
                 var = line.split('=')
                 self.level_color = eval(var[1])
+
+            # handle block groups
+            if('#blocks_section' in line):
+                block_section = True
+            if('#end_of_blocks' in line):
+                block_section = False
+
+            if(block_section):
+                # do some error checking first
+                # based on line length, block width and screen width, can this line be rendered?
+                print("There was an error")
+             
             
