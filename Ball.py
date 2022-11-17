@@ -10,7 +10,7 @@ class Ball(pygame.sprite.Sprite):
         super(Ball,self).__init__()
 
         # bigger ball appears to perform better during collision
-        self.surf = pygame.Surface((15,15))
+        self.surf = pygame.Surface((10,10))
 
         self.colour = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
         self.surf.fill(self.colour)

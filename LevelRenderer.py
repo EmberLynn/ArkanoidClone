@@ -10,6 +10,7 @@
 import os
 import pygame
 import traceback
+import math
 from Block import Block
 
 absolute_path = os.path.dirname(__file__)
@@ -20,12 +21,15 @@ class LevelRenderer:
     def __init__(self):
 
         self.blocks = pygame.sprite.Group()
+        block_section = False
+        # rows start at 0
+        rows = 0
+
         # reading one file for now
         # final intent is to read all levels in the level folder
-        block_section = False
         file = open(full_path + "\Level1.txt", "r")
         for linenum, line in enumerate(file, 1):
-            
+
             # handle general properties  
             if('SCREEN_WIDTH' in line):
                 self.screen_width = int(''.join(filter(str.isdigit,line)))
@@ -48,10 +52,37 @@ class LevelRenderer:
                 continue
             try:
                 if(block_section):
+                    linelength = len(line)-1
+                    maxrows = math.trunc(((self.screen_height-50)/self.block_height)-1) # subtract 1 because rows start at 0
+
                     # do some error checking first
                     # based on line length, block width and screen width, can this line be rendered?
-                    if(self.block_width > (self.screen_width/(len(line)-1))):
+                    if(self.block_width > (self.screen_width/linelength)):
                         raise Exception("Your blocks are too wide given the screen width and column request!")
+                    
+                    # based on row total, block height, and screen heigth, can anything be rendered?
+                    if(rows > maxrows):
+                        raise Exception("You've defined too many rows based on screen height and block height!") 
+
+                    # calculate where to draw the block and add it to blocks group
+                    # need to calculate where we start drawing the block based on current line
+                    # block rule: rendering always starts at 0,0
+                    column = 0
+                    for char in line:
+                        if("B" in char):
+                            block_x = (column*self.block_width)
+                            block_y = (rows*self.block_height)
+
+                            print(block_x)
+
+                            new_block = Block(block_x,block_y)
+                            self.blocks.add(new_block)
+
+                        column += 1
+
+                    # move to next row
+                    rows += 1
+                        
             except Exception as e:
                 print(e)
                 print("Problem located in" + file.name + " at " + line + " Line number:" + str(linenum))

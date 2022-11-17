@@ -16,7 +16,7 @@ class Block(pygame.sprite.Sprite):
     def __new__(cls, *args,**kwargs):
         return super().__new__(cls)
 
-    def __init__(self, screen_width, screen_height):
+    def __init__(self, block_x, block_y):
         super(Block,self).__init__()
         self.surf = pygame.Surface((75,25))
 
@@ -26,10 +26,8 @@ class Block(pygame.sprite.Sprite):
 
         #draw random area for now -- need to implement no overlap with existing
         self.rect = self.surf.get_rect(
-            center=(
-                random.randint(75, (screen_width-75)),
-                random.randint(25, (screen_height-50))
-            )
+            x=block_x,
+            y=block_y
         )
 
         self.mask = pygame.mask.from_surface(self.surf)

@@ -33,16 +33,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
 playerGroup = pygame.sprite.GroupSingle(player)
 
-block = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
-block2 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
-block3 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
-block4 = Block(SCREEN_WIDTH,SCREEN_HEIGHT)
-
-blocks = pygame.sprite.Group()
-blocks.add(block)
-blocks.add(block2)
-blocks.add(block3)
-blocks.add(block4)
+blocks = LevelRenderer.blocks
 
 ball = Ball()
 
