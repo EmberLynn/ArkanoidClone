@@ -73,8 +73,6 @@ class LevelRenderer:
                             block_x = (column*self.block_width)
                             block_y = (rows*self.block_height)
 
-                            print(block_x)
-
                             new_block = Block(block_x,block_y)
                             self.blocks.add(new_block)
 

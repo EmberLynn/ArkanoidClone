@@ -74,36 +74,31 @@ while running:
     blocks_hit = pygame.sprite.spritecollide(ball, blocks, False)
 
     for block in blocks_hit:
-       
-        x_offset_block = ball.rect.x - block.rect.x
-        y_offset_block = ball.rect.y - block.rect.y
-        blockhit = block.mask.overlap(ball.mask,(x_offset_block,y_offset_block))
-        
-        x_offset_ball = block.rect.x - ball.rect.x
-        y_offset_ball = block.rect.y - ball.rect.y
-        ballhit = ball.mask.overlap(block.mask,(x_offset_ball,y_offset_ball))
-        
-        # check for zeroes since they are pixel perfect
-        # check for velocity to ensure ball bounces in correct direction and doesn't clip
-        # corner collisions are still imperfect, but ball no longer clips directly into block
-        if(blockhit is not None or ballhit is not None):
-            if(blockhit[1] == 0):
-                if(ball.velocity[1] >= 0):
-                    ball.bounce("top_or_bottom")
-            elif(ballhit[0] == 0):
-                if(ball.velocity[1] < 0):
-                    ball.bounce("top_or_bottom")
-            elif(ballhit[1] == 0):
-                if(ball.velocity[0] < 0):
-                    ball.bounce("sides")
-            elif(blockhit[0] == 0):
-                if(ball.velocity[0] >= 0):
-                    ball.bounce("sides")
-            else:
-                print("failed to register hit")
 
-            playerScore += 10
-            block.kill()
+        # keeping hit logic seperate for easier readability
+        # -5 and +5 is for offset from imperfect pixel collision on rects
+        # check velocity on top and bottom bounce eliminates sometimes registering top or bottom bounce when it should be side bounce
+        
+        # top bounce
+        if(ball.rect.bottom-5 <= block.rect.top and ball.rect.top-5 <= block.rect.top
+            and ball.velocity[1] >= 0):
+            ball.bounce("top_or_bottom")
+        # bottom bounce
+        elif(ball.rect.bottom+5 >= block.rect.bottom and ball.rect.top+5 >= block.rect.bottom
+            and ball.velocity[1] < 0):
+            ball.bounce("top_or_bottom")
+
+        # left bounce
+        elif(ball.rect.left-5 <= block.rect.left and ball.rect.right-5 <= block.rect.left):
+            ball.bounce("sides")
+
+        # right bounce
+        elif(ball.rect.left+5 >= block.rect.right and ball.rect.right+5 >= block.rect.right):
+            ball.bounce("sides")
+
+        playerScore += 10
+        block.kill()
+        break
     #------------------------------------------------------------------------------
 
     pygame.display.flip()
