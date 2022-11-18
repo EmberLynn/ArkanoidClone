@@ -53,8 +53,7 @@ while running:
             running = False
 
     player.update(pygame.key.get_pressed(), SCREEN_WIDTH)
-    ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
-
+    running = ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
     ## DRAW on screen 
     #in the loop and first or else objects will appear to grow
     screen.fill(INITIAL_COLOR)

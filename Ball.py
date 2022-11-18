@@ -30,9 +30,12 @@ class Ball(pygame.sprite.Sprite):
             self.velocity[1] = -self.velocity[1]
         if(self.rect.y>screen_height):
             self.kill()
+            return False
 
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
+
+        return True
 
     # not good for hitting top or side of block
     def bounce(self, area_hit):
