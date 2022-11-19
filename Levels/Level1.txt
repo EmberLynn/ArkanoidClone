@@ -4,7 +4,7 @@ Row and column totals are abstracted from the visual. If block width, height, an
 are not compatible (that many blocks can't fit as that many columns considering the width of the screen!),
 a (helpful) error will be throw.
 
-SCREEN_WIDTH=800
+SCREEN_WIDTH=900
 SCREEN_HEIGHT=600
 LEVEL_COLOR=0,102,34
 BLOCK_WIDTH=75

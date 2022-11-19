@@ -18,9 +18,10 @@ pygame.init()
 
 LevelRenderer = LevelRenderer()
 
-SCREEN_WIDTH = LevelRenderer.screen_width
-SCREEN_HEIGHT = LevelRenderer.screen_height
-INITIAL_COLOR = LevelRenderer.level_color
+# only one level right now; this code will be changed to handle multiple levels
+SCREEN_WIDTH = LevelRenderer.levels[0].screen_width
+SCREEN_HEIGHT = LevelRenderer.levels[0].screen_height
+INITIAL_COLOR = LevelRenderer.levels[0].level_color
 
 running = True
 clock = pygame.time.Clock()
@@ -33,9 +34,9 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
 playerGroup = pygame.sprite.GroupSingle(player)
 
-blocks = LevelRenderer.blocks
+blocks = LevelRenderer.levels[0].blocks
 
-ball = Ball()
+ball = Ball(SCREEN_WIDTH,SCREEN_HEIGHT)
 
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
@@ -45,6 +46,9 @@ all_sprites.add(blocks)
 while running:
     clock.tick(40)
 
+    player.update(pygame.key.get_pressed(), SCREEN_WIDTH)
+    running = ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
+
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
@@ -52,8 +56,6 @@ while running:
         elif event.type == QUIT:
             running = False
 
-    player.update(pygame.key.get_pressed(), SCREEN_WIDTH)
-    running = ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
     ## DRAW on screen 
     #in the loop and first or else objects will appear to grow
     screen.fill(INITIAL_COLOR)
@@ -66,7 +68,9 @@ while running:
 
     #------------------paddle hit-----------------------------------------------
     if(pygame.sprite.spritecollide(ball, playerGroup, False)):
-        ball.bounce("top_or_bottom")
+        if(ball.rect.bottom-5 <= player.rect.top and ball.rect.top-5 <= player.rect.top
+            and ball.velocity[1] >= 0):
+            ball.bounce("top_or_bottom")
     #---------------------------------------------------------------------------
 
     #------------------block hits-----------------------------------------------
