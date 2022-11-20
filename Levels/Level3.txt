@@ -16,6 +16,7 @@ they will be aligned starting from 0,0 (top left of screen)
 #blocks_section
 -----------
 -----------
+BBBBBBBBBBB
 -----------
 -----------
 -----------
@@ -25,12 +26,5 @@ they will be aligned starting from 0,0 (top left of screen)
 -----------
 -----------
 -----------
------------
------------
------------
------------
------------
------------
------------
--------B---
+--------B--
 #end_of_blocks
