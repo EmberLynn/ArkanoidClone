@@ -91,6 +91,7 @@ class LevelRenderer:
             
             # add level to levels
             self.levels.append(new_level)
+            file.close()
 
 
              
