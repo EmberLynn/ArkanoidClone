@@ -3,9 +3,6 @@ import random
 
 # reference from here: https://www.101computing.net/pong-tutorial-using-pygame-adding-a-bouncing-ball/
 class Ball(pygame.sprite.Sprite):
-    def __new__(cls, *args,**kwargs):
-        return super().__new__(cls)
-
     def __init__(self, screen_width, screen_height):
         super(Ball,self).__init__()
 

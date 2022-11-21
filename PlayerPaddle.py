@@ -12,9 +12,6 @@ from pygame.locals import (
 )
 
 class PlayerPaddle(pygame.sprite.Sprite):
-    def __new__(cls, *args,**kwargs):
-        return super().__new__(cls)
-
     def __init__(self, screen_width, screen_height):
         super(PlayerPaddle, self).__init__()
         self.surf = pygame.Surface((75,5))
