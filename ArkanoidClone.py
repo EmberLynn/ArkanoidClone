@@ -36,9 +36,9 @@ while running:
 
     # get the new/next level -- levels gets popped -- we don't keep finished levels---
     if(level_finished and LevelRenderer.levels):
-        SCREEN_WIDTH = LevelRenderer.levels[0].screen_width
-        SCREEN_HEIGHT = LevelRenderer.levels[0].screen_height
-        INITIAL_COLOR = LevelRenderer.levels[0].level_color
+        SCREEN_WIDTH = LevelRenderer.levels[0].get_screen_width()
+        SCREEN_HEIGHT = LevelRenderer.levels[0].get_screen_height()
+        INITIAL_COLOR = LevelRenderer.levels[0].get_level_color()
 
         screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 

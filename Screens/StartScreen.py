@@ -12,3 +12,5 @@ from BaseScreen import BaseScreen
 class StartScreen(BaseScreen):
     def __init__(self):
         super().__init__() 
+
+        self.set_screen_height(600)

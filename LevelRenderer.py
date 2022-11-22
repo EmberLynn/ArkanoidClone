@@ -35,16 +35,16 @@ class LevelRenderer:
             for linenum, line in enumerate(file, 1):
                 # handle general properties  
                 if('SCREEN_WIDTH' in line):
-                    new_level.screen_width = int(''.join(filter(str.isdigit,line)))
+                    new_level.set_screen_width(int(''.join(filter(str.isdigit,line))))
                 elif('SCREEN_HEIGHT' in line):
-                    new_level.screen_height = int(''.join(filter(str.isdigit,line)))
+                    new_level.set_screen_height(int(''.join(filter(str.isdigit,line))))
                 elif('LEVEL_COLOR' in line):
                     var = line.split('=')
-                    new_level.level_color = eval(var[1])
+                    new_level.set_level_color(eval(var[1]))
                 elif('BLOCK_WIDTH' in line):
-                    new_level.block_width = int(''.join(filter(str.isdigit,line)))
+                    new_level.set_block_width(int(''.join(filter(str.isdigit,line))))
                 elif('BLOCK_HEIGHT' in line):
-                    new_level.block_height = int(''.join(filter(str.isdigit,line)))
+                    new_level.set_block_height(int(''.join(filter(str.isdigit,line))))
 
                 # handle block groups
                 if('#blocks_section' in line):
@@ -56,11 +56,11 @@ class LevelRenderer:
                 try:
                     if(block_section):
                         linelength = len(line)-1
-                        maxrows = math.trunc(((new_level.screen_height-50)/new_level.block_height)-1) # subtract 1 because rows start at 0
+                        maxrows = math.trunc(((new_level.get_screen_height()-50)/new_level.get_block_height())-1) # subtract 1 because rows start at 0
 
                         # do some error checking first
                         # based on line length, block width and screen width, can this line be rendered?
-                        if(new_level.block_width > (new_level.screen_width/linelength)):
+                        if(new_level.get_block_width ()> (new_level.get_screen_width()/linelength)):
                             raise Exception("Your blocks are too wide given the screen width and column request!")
                         
                         # based on row total, block height, and screen heigth, can anything be rendered?
@@ -73,8 +73,8 @@ class LevelRenderer:
                         column = 0
                         for char in line:
                             if("B" in char):
-                                block_x = (column*new_level.block_width)
-                                block_y = (rows*new_level.block_height)
+                                block_x = (column*new_level.get_block_width())
+                                block_y = (rows*new_level.get_block_height())
 
                                 new_block = Block(block_x,block_y)
                                 new_level.blocks.add(new_block)
