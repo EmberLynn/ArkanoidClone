@@ -1,8 +1,15 @@
+import sys
+
+# C:\Users\ember\OneDrive\Desktop\Projects\PyGame\ArkanoidClone\Screens
+# this is gross and I dislike it. Look into something better...
+sys.path.insert(0,'/Users/ember/OneDrive/Desktop/Projects/PyGame/ArkanoidClone/Screens')
+
 import pygame
 from PlayerPaddle import PlayerPaddle
 from Block import Block
 from Ball import Ball
 from LevelRenderer import LevelRenderer
+from Screens.StartScreen import StartScreen
 
 from pygame.locals import (
     RLEACCEL,
@@ -20,32 +27,48 @@ pygame.display.set_caption("BARKanoid")
 icon = pygame.image.load("Assests/singledog.png")
 pygame.display.set_icon(icon)
 
-LevelRenderer = LevelRenderer()
+levelRenderer = LevelRenderer()
 
-running = True
+runningStart = True
+runningMain = True
 clock = pygame.time.Clock()
 
 playerScore = 0
 myfont = pygame.font.SysFont("Good Times Regular", 25, True)
 
 level_finished = True
+# startscreen_loaded = False -- can we only draw the screen when needed?
 
-while running:
+while runningStart:
+    startScreen = StartScreen()
+    startScreen.draw()
+    pygame.display.flip()
+    print("Hello?")
+
+    # always check for exit events before continuing the loop    
+    for event in pygame.event.get():
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                runningStart = False
+        elif event.type == QUIT:
+            runningStart = False
+
+while runningMain:
 
     clock.tick(40)
 
     # get the new/next level -- levels gets popped -- we don't keep finished levels---
-    if(level_finished and LevelRenderer.levels):
-        SCREEN_WIDTH = LevelRenderer.levels[0].get_screen_width()
-        SCREEN_HEIGHT = LevelRenderer.levels[0].get_screen_height()
-        INITIAL_COLOR = LevelRenderer.levels[0].get_level_color()
+    if(level_finished and levelRenderer.levels):
+        SCREEN_WIDTH = levelRenderer.levels[0].get_screen_width()
+        SCREEN_HEIGHT = levelRenderer.levels[0].get_screen_height()
+        INITIAL_COLOR = levelRenderer.levels[0].get_level_color()
 
         screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
         player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
         playerGroup = pygame.sprite.GroupSingle(player)
 
-        blocks = LevelRenderer.levels[0].blocks
+        blocks = levelRenderer.levels[0].blocks
 
         ball = Ball(SCREEN_WIDTH,SCREEN_HEIGHT)
 
@@ -56,14 +79,14 @@ while running:
 
         level_finished = False
 
-    elif not LevelRenderer.levels:
+    elif not levelRenderer.levels:
         print("Game is over when there are no levels left to render!")
         quit()
     # --------------------------------------------------------------------------------
 
     # start the game logic after the level has rendered--------------------------------
     player.update(pygame.key.get_pressed(), SCREEN_WIDTH)
-    running = ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
+    runningMain = ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
 
     ## DRAW on screen 
     #in the loop and first or else objects will appear to grow
@@ -114,7 +137,7 @@ while running:
     #------------------------------------------------------------------------------
 
     if not blocks:
-        LevelRenderer.levels.pop(0)
+        levelRenderer.levels.pop(0)
         level_finished = True
 
     pygame.display.flip()
@@ -123,8 +146,8 @@ while running:
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
-                running = False
+                runningMain = False
         elif event.type == QUIT:
-            running = False
+            runningMain = False
 
 pygame.quit()

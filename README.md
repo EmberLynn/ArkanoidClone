@@ -18,3 +18,5 @@ Others in no particular order:
     a. Make ball a round sprite
     b. Make paddle a dog (BARKanoid is the name, afterall)
     c. Have a set of various backgrounds for the LevelRenderer to use
+3.Regardless if it matters in pygame, I'd like to load and unload assets such as screens
+4.Find better way to import modules in directories.
