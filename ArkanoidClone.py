@@ -31,7 +31,8 @@ pygame.display.set_icon(icon)
 levelRenderer = LevelRenderer()
 
 runningStart = True
-runningMain = True
+runningMain = False
+runningGameOver = False
 clock = pygame.time.Clock()
 
 playerScore = 0
@@ -40,6 +41,7 @@ myfont = pygame.font.SysFont("Good Times Regular", 25, True)
 level_finished = True
 # startscreen_loaded = False -- can we only draw the screen when needed?
 
+# ----------Start Screen Loop-------------
 while runningStart:
     startScreen = StartScreen()
     startScreen.draw()
@@ -47,16 +49,19 @@ while runningStart:
 
     # always check for exit events before continuing the loop    
     for event in pygame.event.get():
-        if event.type == MOUSEBUTTONDOWN:
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                runningStart = False
+        elif event.type == QUIT:
+            runningStart = False
+        elif event.type == MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                 if startScreen.check_mouse_click() == "start_button":
                     runningStart = False
-        if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                pygame.quit()
-        elif event.type == QUIT:
-            pygame.quit()
+                    runningMain = True
+# ----------END of Start Screen Loop-------------
 
+# ----------Main Game Loop-------------
 while runningMain:
 
     clock.tick(40)
@@ -85,12 +90,18 @@ while runningMain:
 
     elif not levelRenderer.levels:
         print("Game is over when there are no levels left to render!")
-        quit()
+        runningGameOver = True
+        runningMain = False
+        break
     # --------------------------------------------------------------------------------
 
     # start the game logic after the level has rendered--------------------------------
     player.update(pygame.key.get_pressed(), SCREEN_WIDTH)
-    runningMain = ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
+    
+    if ball.update(SCREEN_WIDTH,SCREEN_HEIGHT) == False:
+        runningMain = False
+        runningGameOver = True
+        break
 
     ## DRAW on screen 
     #in the loop and first or else objects will appear to grow
@@ -153,5 +164,13 @@ while runningMain:
                 runningMain = False
         elif event.type == QUIT:
             runningMain = False
+
+# ----------END of Main Game Loop-------------
+
+# ----------Game Over Loop-------------
+while runningGameOver:
+    print("Game Over!")
+    runningGameOver = False
+# ---------- END of Game Over Loop-------------
 
 pygame.quit()

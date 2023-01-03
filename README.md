@@ -2,7 +2,7 @@
 A clone of Arkanoid written in PyGame
 
 To Do's:
-1.Create start screen:
+1.(DONE)Create start screen:
     Class of additional screens; only render when required
 2.Display final score at end of game and provide option to restart or quit
 3.Add continue screen between levels

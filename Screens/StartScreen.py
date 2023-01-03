@@ -21,6 +21,12 @@ START_BUTTON_TOP = (SCREEN_HEIGHT/2)
 START_BUTTON_RIGHT = START_BUTTON_LEFT + 200
 START_BUTTON_BOTTOM = START_BUTTON_TOP + 60
 
+# quit button
+QUIT_BUTTON_LEFT = ((SCREEN_WIDTH/2)-100)
+QUIT_BUTTON_TOP = (SCREEN_HEIGHT/2)
+QUIT_BUTTON_RIGHT = START_BUTTON_LEFT + 200
+QUIT_BUTTON_BOTTOM = START_BUTTON_TOP + 60
+
 class StartScreen(BaseScreen):
     def __init__(self):
         super().__init__() 
@@ -36,9 +42,13 @@ class StartScreen(BaseScreen):
         # screen text
         self.title = titlefont.render("BARKanoid!",1,(0,0,0))
         self.start_button_text = buttonfont.render("Start Game",1,(0,0,0))
+        self.quit_button_text = buttonfont.render("Quit",1,(0,0,0))
 
         # position of start button
-        self.start_button_dimensions = (((SCREEN_WIDTH/2)-100),(SCREEN_HEIGHT/2),200,60)
+        self.start_button_dimensions = (START_BUTTON_LEFT,START_BUTTON_TOP,200,60)
+
+        # position of quit button
+        self.quit_button_dimensions = (((SCREEN_WIDTH/2)-100),((SCREEN_HEIGHT/2)+100),200,60)
 
     def draw(self):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
@@ -50,6 +60,10 @@ class StartScreen(BaseScreen):
         # start button
         pygame.draw.rect(self.screen,(77, 148, 255),self.start_button_dimensions)
         self.screen.blit(self.start_button_text, (((SCREEN_WIDTH/2)-55),(SCREEN_HEIGHT/2)+20))
+
+        # quit button
+        pygame.draw.rect(self.screen,(77, 148, 255),self.quit_button_dimensions)
+        # self.screen.blit(self.quit_button_text, (((SCREEN_WIDTH/2)-55),(SCREEN_HEIGHT/2)+20))
     
     def check_mouse_click(self):
 
