@@ -19,6 +19,7 @@ from pygame.locals import (
     K_RIGHT,
     K_ESCAPE,
     KEYDOWN,
+    MOUSEBUTTONDOWN,
     QUIT
 )
 pygame.init()
@@ -43,15 +44,18 @@ while runningStart:
     startScreen = StartScreen()
     startScreen.draw()
     pygame.display.flip()
-    print("Hello?")
 
     # always check for exit events before continuing the loop    
     for event in pygame.event.get():
+        if event.type == MOUSEBUTTONDOWN:
+            if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                if startScreen.check_mouse_click() == "start_button":
+                    runningStart = False
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
-                runningStart = False
+                pygame.quit()
         elif event.type == QUIT:
-            runningStart = False
+            pygame.quit()
 
 while runningMain:
 
