@@ -4,7 +4,7 @@ A clone of Arkanoid written in PyGame
 To Do's:
 1.(DONE)Create start screen:
     Class of additional screens; only render when required
-2.Display final score at end of game and provide option to restart or quit
+2.(DONE)Display final score at end of game and provide option to restart or quit
 3.Add continue screen between levels
 4.Add High Score list to start screen (save top 10 score of all time)
 5.Add a system of scaling difficulty (example, blocks take multiple hits):
@@ -20,3 +20,4 @@ Others in no particular order:
     c. Have a set of various backgrounds for the LevelRenderer to use
 3.Regardless if it matters in pygame, I'd like to load and unload assets such as screens
 4.Find better way to import modules in directories.
+5.Convert Buttons to a class
