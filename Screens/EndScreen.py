@@ -90,7 +90,7 @@ class EndScreen(BaseScreen):
         quit_text_rect = self.quit_button_text.get_rect(center=(QUIT_BUTTON_LEFT+100, QUIT_BUTTON_TOP+30))
         self.screen.blit(self.quit_button_text, quit_text_rect)
 
-    def chec_mouse_click(self):
+    def check_mouse_click(self):
 
         mouse_x = pygame.mouse.get_pos()[0]
         mouse_y = pygame.mouse.get_pos()[1]

@@ -10,6 +10,8 @@ from BaseScreen import BaseScreen
 # scores (TBD)
 # version number in top left
 
+VERSION_NUM = .5
+
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 900
 SCREEN_COLOR = ((0, 153, 77))
@@ -33,6 +35,7 @@ class StartScreen(BaseScreen):
 
         buttonfont = pygame.font.SysFont("Good Times Regular", 30, False)
         titlefont = pygame.font.SysFont("Good Times Regular", 50, False)
+        tinyfont = pygame.font.SysFont("Good Times Regular", 20, False)
 
         # basic info -- doubling up here; might want to change later
         self.set_screen_height(SCREEN_HEIGHT)
@@ -43,6 +46,7 @@ class StartScreen(BaseScreen):
         self.title = titlefont.render("BARKanoid!",1,(0,0,0))
         self.start_button_text = buttonfont.render("Start Game",1,(0,0,0))
         self.quit_button_text = buttonfont.render("Quit",1,(0,0,0))
+        self.version_num = tinyfont.render("Version: " + str(VERSION_NUM),1,(0,0,0))
 
         # position of start button
         self.start_button_dimensions = (START_BUTTON_LEFT,START_BUTTON_TOP,200,60)
@@ -67,6 +71,10 @@ class StartScreen(BaseScreen):
         pygame.draw.rect(self.screen,(77, 148, 255),self.quit_button_dimensions)
         quit_text_rect = self.quit_button_text.get_rect(center=(QUIT_BUTTON_LEFT+100, QUIT_BUTTON_TOP+30))
         self.screen.blit(self.quit_button_text, quit_text_rect)
+
+        # version number
+        version_num_text_rect = self.version_num.get_rect(center=(SCREEN_WIDTH-50,SCREEN_HEIGHT-10))
+        self.screen.blit(self.version_num, version_num_text_rect)
     
     def check_mouse_click(self):
 

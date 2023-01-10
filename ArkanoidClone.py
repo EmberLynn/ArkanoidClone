@@ -11,6 +11,7 @@ from Ball import Ball
 from LevelRenderer import LevelRenderer
 from Screens.StartScreen import StartScreen
 from Screens.EndScreen import EndScreen
+from Screens.ContinueScreen import ContinueScreen
 
 from pygame.locals import (
     RLEACCEL,
@@ -48,6 +49,7 @@ def main(new_game):
     myfont = pygame.font.SysFont("Good Times Regular", 25, True)
 
     level_finished = True
+    currentLevel = 0
 
     # ----------START of Start Screen Loop-------------
     while runningStart:
@@ -92,7 +94,7 @@ def main(new_game):
         # get the new/next level -- levels gets popped -- we don't keep finished levels---
         for level in levelRenderer.levels:
             if(level_finished):
-                print("in the render loop")
+                currentLevel += 1
                 SCREEN_WIDTH = level.get_screen_width()
                 SCREEN_HEIGHT = level.get_screen_height()
                 INITIAL_COLOR = level.get_level_color()
@@ -185,13 +187,31 @@ def main(new_game):
             levelRenderer.levels.pop(0)
             level_finished = True
 
+            # ----------START of Continue Loop-------------
+            if(len(levelRenderer.levels) > 0):
+                runningContinue = True
+                while runningContinue:
+                    continueScreen = ContinueScreen()
+                    continueScreen.draw(currentLevel, playerScore)
+                    pygame.display.flip()
+
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+                            if event.key == K_ESCAPE:
+                                pygame.quit()
+                                exit()
+                        elif event.type == QUIT:
+                            pygame.quit()
+                            exit()
+                        elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                            result = continueScreen.check_mouse_click()
+                            if result == "continue_button":
+                                runningContinue = False
+            # ----------END of Continue Loop-------------
+
         pygame.display.flip()
 
     # ----------END of Main Game Loop-------------
-
-    # ----------START of Continue Loop-------------
-    # implement for loop in Main Game Loop to implement continue
-    # ----------END of Continue Loop-------------
 
     # ----------START of Game Over Loop-------------
     while runningGameOver:
@@ -208,7 +228,7 @@ def main(new_game):
                     pygame.quit()
                     exit()
                 elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                    result = endScreen.chec_mouse_click()
+                    result = endScreen.check_mouse_click()
                     if result == "start_button":
                         # start new game from main
                         main(False)
