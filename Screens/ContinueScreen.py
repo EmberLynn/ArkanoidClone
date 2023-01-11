@@ -1,5 +1,5 @@
 import pygame
-from BaseScreen import BaseScreen
+from Screens.BaseScreen import BaseScreen
 
 # ContinueScreen contains:
 # size

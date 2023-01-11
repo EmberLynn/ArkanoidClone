@@ -1,14 +1,8 @@
-import sys
-
-# C:\Users\ember\OneDrive\Desktop\Projects\PyGame\ArkanoidClone\Screens
-# this is gross and I dislike it. Look into something better...
-sys.path.insert(0,'/Users/ember/OneDrive/Desktop/Projects/PyGame/ArkanoidClone/Screens')
-
 import pygame
-from PlayerPaddle import PlayerPaddle
-from Block import Block
-from Ball import Ball
-from LevelRenderer import LevelRenderer
+from Sprites.PlayerPaddle import PlayerPaddle
+from Sprites.Block import Block
+from Sprites.Ball import Ball
+from Levels.LevelRenderer import LevelRenderer
 from Screens.StartScreen import StartScreen
 from Screens.EndScreen import EndScreen
 from Screens.ContinueScreen import ContinueScreen

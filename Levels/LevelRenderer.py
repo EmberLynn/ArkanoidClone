@@ -11,8 +11,8 @@ import os
 import pygame
 import traceback
 import math
-from Block import Block
-from Level import Level
+from Sprites.Block import Block
+from Levels.Level import Level
 
 absolute_path = os.path.dirname(__file__)
 relative_path = "Levels"
