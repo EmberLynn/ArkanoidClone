@@ -1,5 +1,6 @@
 import pygame
 from Screens.BaseScreen import BaseScreen
+from Utilities.Button import Button
 
 # StartScreen contains:
 # size
@@ -54,6 +55,9 @@ class StartScreen(BaseScreen):
         # position of quit button
         self.quit_button_dimensions = (QUIT_BUTTON_LEFT,QUIT_BUTTON_TOP,200,60)
 
+        # testing button class
+        self.new_button = Button.make_default_button(200,60,((SCREEN_WIDTH/2),((SCREEN_HEIGHT/2)+200)),"Say Hello!")
+
     def draw(self):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
         self.screen.fill(SCREEN_COLOR)
@@ -71,6 +75,10 @@ class StartScreen(BaseScreen):
         pygame.draw.rect(self.screen,(77, 148, 255),self.quit_button_dimensions)
         quit_text_rect = self.quit_button_text.get_rect(center=(QUIT_BUTTON_LEFT+100, QUIT_BUTTON_TOP+30))
         self.screen.blit(self.quit_button_text, quit_text_rect)
+
+        # testing drawing button class
+        pygame.draw.rect(self.screen,self.new_button.button_colour,self.new_button.button_dimensions)
+        self.screen.blit(self.new_button.button_text, self.new_button.button_text_rect)
 
         # version number
         version_num_text_rect = self.version_num.get_rect(center=(SCREEN_WIDTH-50,SCREEN_HEIGHT-10))

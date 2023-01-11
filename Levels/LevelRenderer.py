@@ -15,7 +15,7 @@ from Sprites.Block import Block
 from Levels.Level import Level
 
 absolute_path = os.path.dirname(__file__)
-relative_path = "Levels"
+relative_path = "LevelMaps"
 full_path = os.path.join(absolute_path, relative_path)
 files = os.listdir(full_path)
 
