@@ -22,5 +22,7 @@ Others in no particular order (nice-to-haves):
     - Have a set of various backgrounds for the LevelRenderer to use
 3. Regardless if it matters in pygame, I'd like to load and unload assets such as screens
 4. Find better way to import modules in directories.
-5. Convert Buttons to a class
-6. General code analysis and clean-up (how can we optimize the written code?)
+5. (DONE)Convert Buttons to a class
+6. General code analysis and clean-up
+    - Code optimization
+    - Fixing mutators and accessors

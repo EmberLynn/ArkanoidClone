@@ -33,7 +33,7 @@ class Button:
         self.button_colour = button_colour # needs getter
 
         # text attributes
-        self.__label_text = button_label
+        self.label_text = button_label
         # optional (default is black)
         self.__label_colour = label_colour
         # optional (default is pygame.font.SysFont("Good Times Regular", 30, False))

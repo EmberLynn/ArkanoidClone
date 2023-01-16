@@ -63,10 +63,10 @@ def main(new_game):
             elif event.type == MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                     result = startScreen.check_mouse_click()
-                    if result == "start_button":
+                    if result == "Start Game":
                         runningStart = False
                         runningMain = True
-                    elif result == "quit_button":
+                    elif result == "Quit Game":
                         runningStart = False
     # ----------END of Start Screen Loop-------------
 
@@ -199,7 +199,7 @@ def main(new_game):
                             exit()
                         elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                             result = continueScreen.check_mouse_click()
-                            if result == "continue_button":
+                            if result == "Continue?":
                                 runningContinue = False
             # ----------END of Continue Loop-------------
 
@@ -223,12 +223,13 @@ def main(new_game):
                     exit()
                 elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                     result = endScreen.check_mouse_click()
-                    if result == "start_button":
+                    runningGameOver = False
+                    if result == "Restart Game":
                         # start new game from main
                         main(False)
-                    elif result == "main_button":
+                    elif result == "Main Menu":
                         main(True)
-                    elif result == "quit_button":
+                    elif result == "Quit Game":
                         pygame.quit()
                         exit()
     # ----------END of Game Over Loop-------------
