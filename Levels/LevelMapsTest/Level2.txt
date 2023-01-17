@@ -8,20 +8,23 @@ SCREEN_WIDTH=900
 SCREEN_HEIGHT=600
 LEVEL_COLOR=0,102,34
 BLOCK_WIDTH=75
-BLOCK_HEIGHT=50
+BLOCK_HEIGHT=25
 
 Blocks will be rendered on screen from left to right. If block columns do not fit the length of the screen, 
 they will be aligned starting from 0,0 (top left of screen)
 
 #blocks_section
-------------
-------------
-------------
-------------
-----BBBB----
----BBBBBB---
----BBBBBB---
-----BBBB----
-------------
-------------
+-----------
+-----------
+-----------
+-----------
+-----------
+-----------
+-----------
+-----------
+-----------
+-----------
+-----------
+-----------
+--------B--
 #end_of_blocks

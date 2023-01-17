@@ -26,3 +26,21 @@ Others in no particular order (nice-to-haves):
 6. General code analysis and clean-up
     - Code optimization
     - Fixing mutators and accessors
+7. Add black outline to blocks (so they can easily be seen)
+8. Launcher for the .exe
+
+Here are fantastic suggestions from my test player (Katz) that I will implements:
+- Fart sound effect with block destruction (maybe not my fave suggestion...)
+- Add outline to the blocks so even colour blind individuals can see them all
+- Add a Lime somewhere...
+- For the Roguelike elements:
+    - longer bar
+    - screen wrap
+    - ball skins (each skin comes with a boon)
+    - stronger ball hit (to add when block take multi-hits)
+    - ball destroys multiple blocks per hit
+    - multi-ball
+    - multi-bars
+- Temporary randomily generated block that offers a boon when hit
+- Add a story mode to the game
+- The floor is rising level (maybe much later in the game; an additional difficulty mode)

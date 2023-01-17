@@ -1,3 +1,4 @@
+import sys
 import pygame
 from Sprites.PlayerPaddle import PlayerPaddle
 from Sprites.Block import Block
@@ -18,6 +19,7 @@ from pygame.locals import (
     MOUSEBUTTONDOWN,
     QUIT
 )
+
 pygame.init()
 
 pygame.display.set_caption("BARKanoid")
@@ -56,10 +58,10 @@ def main(new_game):
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     pygame.quit()
-                    exit()
+                    sys.exit()
             elif event.type == QUIT:
                 pygame.quit()
-                exit()
+                sys.exit()
             elif event.type == MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                     result = startScreen.check_mouse_click()
@@ -80,10 +82,10 @@ def main(new_game):
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     pygame.quit()
-                    exit()
+                    sys.exit()
             elif event.type == QUIT:
                 pygame.quit()
-                exit()
+                sys.exit()
 
         # get the new/next level -- levels gets popped -- we don't keep finished levels---
         for level in levelRenderer.levels:
@@ -193,10 +195,10 @@ def main(new_game):
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
                                 pygame.quit()
-                                exit()
+                                sys.exit()
                         elif event.type == QUIT:
                             pygame.quit()
-                            exit()
+                            sys.exit()
                         elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                             result = continueScreen.check_mouse_click()
                             if result == "Continue?":
@@ -217,10 +219,10 @@ def main(new_game):
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         pygame.quit()
-                        exit()
+                        sys.exit()
                 elif event.type == QUIT:
                     pygame.quit()
-                    exit()
+                    sys.exit()
                 elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                     result = endScreen.check_mouse_click()
                     runningGameOver = False
@@ -231,9 +233,9 @@ def main(new_game):
                         main(True)
                     elif result == "Quit Game":
                         pygame.quit()
-                        exit()
+                        sys.exit()
     # ----------END of Game Over Loop-------------
 
 main(True)
 pygame.quit()
-exit()
+sys.exit()

@@ -13,9 +13,9 @@ from pygame.locals import (
 )
 
 class Block(pygame.sprite.Sprite):
-    def __init__(self, block_x, block_y):
+    def __init__(self, block_x, block_y, width, height):
         super(Block,self).__init__()
-        self.surf = pygame.Surface((75,25))
+        self.surf = pygame.Surface((width,height))
 
         # block to be random colour
         self.colour = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]

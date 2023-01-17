@@ -76,7 +76,7 @@ class LevelRenderer:
                                 block_x = (column*new_level.get_block_width())
                                 block_y = (rows*new_level.get_block_height())
 
-                                new_block = Block(block_x,block_y)
+                                new_block = Block(block_x,block_y,new_level.get_block_width(),new_level.get_block_height())
                                 new_level.blocks.add(new_block)
 
                             column += 1
