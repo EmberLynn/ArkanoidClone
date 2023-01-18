@@ -7,6 +7,7 @@ from Levels.LevelRenderer import LevelRenderer
 from Screens.StartScreen import StartScreen
 from Screens.EndScreen import EndScreen
 from Screens.ContinueScreen import ContinueScreen
+from Screens.HighScoreScreen import HighScoreScreen
 
 from pygame.locals import (
     RLEACCEL,
@@ -70,6 +71,35 @@ def main(new_game):
                         runningMain = True
                     elif result == "Quit Game":
                         runningStart = False
+                    elif result == "High Scores":
+                        # ----------START of High Score Screen Loop-------------
+                        runningHighScore = True
+                        while runningHighScore:
+                            highScoreScreen = HighScoreScreen()
+                            highScoreScreen.draw()
+                            pygame.display.flip()
+
+                            for event in pygame.event.get():
+                                if event.type == KEYDOWN:
+                                    if event.key == K_ESCAPE:
+                                        pygame.quit()
+                                        sys.exit()
+                                elif event.type == QUIT:
+                                    pygame.quit()
+                                    sys.exit()
+                                elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                                    result = highScoreScreen.check_mouse_click()
+                                    if result == "Main Menu":
+                                        runningHighScore = False
+            # ----------END of High Score Loop-------------
+                    elif result == "Options":
+            # ----------START of Options Loop-------------
+                        runningOptions = True
+                        while runningOptions:
+                            runningOptions = False
+                            print("To be implemented")
+            # ----------END of Options Loop-------------
+
     # ----------END of Start Screen Loop-------------
 
     # ----------START of Main Game Loop-------------
@@ -225,11 +255,14 @@ def main(new_game):
                     sys.exit()
                 elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                     result = endScreen.check_mouse_click()
-                    runningGameOver = False
                     if result == "Restart Game":
                         # start new game from main
+                        runningGameOver = False
                         main(False)
                     elif result == "Main Menu":
+                        
+                        endScreen.check_for_high_score(current_score=9)
+                        runningGameOver = False
                         main(True)
                     elif result == "Quit Game":
                         pygame.quit()
@@ -237,5 +270,5 @@ def main(new_game):
     # ----------END of Game Over Loop-------------
 
 main(True)
-pygame.quit()
-sys.exit()
+# pygame.quit()
+# sys.exit()

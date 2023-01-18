@@ -7,9 +7,9 @@ To Do's:
     - Class of additional screens; only render when required
 2. (DONE)Display final score at end of game and provide option to restart or quit
 3. (DONE)Add continue screen between levels
-4. Add High Score list to start screen (save top 10 scores of all time)
+4. (IN PROGRESS) Add High Score list to start screen (save top 10 scores of all time)
 5. Add a system of scaling difficulty (example, blocks take multiple hits):
-    - With this, I will add sprites to blocks to exibit level of damage
+    - With this, I will add sprites (or something) to blocks to exibit level of damage
 6. Add Roguelite elements to game:
     - Example. Choice or upgrade after each screen -- a pro that comes with a con?
 
@@ -26,8 +26,11 @@ Others in no particular order (nice-to-haves):
 6. General code analysis and clean-up
     - Code optimization
     - Fixing mutators and accessors
+    - Main (ArkanoidClone.py) is getting large; split into functions
 7. Add black outline to blocks (so they can easily be seen)
 8. Launcher for the .exe
+9. In Windows, moving the game screen repeatedly or repeatedly focusing on another application can cause the game's surface to misalign with the window (I don't know what the fix would be for this or what is causing the issue)
+    - I'm going to add a display mode in an Options menu. Default is NOFRAME but the player can decide to put in windowed mode with a warning that it is not recommended due to the aforementioned.
 
 Here are fantastic suggestions from my test player (Katz) that I will implements:
 - Fart sound effect with block destruction (maybe not my fave suggestion...)

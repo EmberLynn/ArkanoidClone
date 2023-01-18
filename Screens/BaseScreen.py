@@ -1,29 +1,37 @@
-# a class of commonalities that all screens share
-# All screens have size (height and width) and colour, at the least 
-# has similarities to Level, but I'll keep them seperate for now
+import os
 import pygame
 
 class BaseScreen:
     def __init__(self):
 
-        self.__screen_width = 0
-        self.__screen_height = 0
-        self.__level_color = (0,0,0)
+        self.button_list = []
 
-    def set_screen_width(self, screen_width):
-        self.__screen_width=screen_width
-    def get_screen_width(self):
-        return self.__screen_width
-    screen_width=property(get_screen_width, set_screen_width)
+    def check_mouse_click(self):
 
-    def set_screen_height(self, screen_height):
-        self.__screen_height=screen_height
-    def get_screen_height(self):
-        return self.__screen_height
-    screen_height=property(get_screen_height, set_screen_height)
+        mouse_x = pygame.mouse.get_pos()[0]
+        mouse_y = pygame.mouse.get_pos()[1]
 
-    def set_level_color(self, level_color):
-        self.__level_color=level_color
-    def get_level_color(self):
-        return self.__level_color
-    level_color=property(get_level_color, set_level_color)
+        for button in self.button_list:
+            if button.clicked(mouse_x, mouse_y):
+                return button.label_text
+
+    def draw_buttons(self):
+        for button in self.button_list:
+            pygame.draw.rect(self.screen, button.button_colour, button.button_dimensions)
+            self.screen.blit(button.button_text, button.button_text_rect)
+
+    # because EndScreen and HighScoreScreen need access to this
+    def get_high_scores(self):
+
+        absolute_path = os.path.dirname(__file__)
+        relative_path = "..\\Assests"
+        full_path = os.path.join(absolute_path, relative_path)
+        file = os.path.join(full_path,"high_scores.txt")
+
+        # get the saved high scores
+        high_score_list = []
+        f = open(file,'r')
+        for line in f:
+            high_score_list.append(line.rstrip('\n'))
+
+        return high_score_list

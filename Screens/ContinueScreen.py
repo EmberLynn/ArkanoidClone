@@ -19,11 +19,6 @@ class ContinueScreen(BaseScreen):
 
         buttonfont = pygame.font.SysFont("Good Times Regular", 30, False)
 
-        # basic info -- doubling up here; might want to change later
-        self.set_screen_height(SCREEN_HEIGHT)
-        self.set_screen_width(SCREEN_WIDTH)
-        self.set_level_color((SCREEN_COLOR))
-
         # create buttons
         self.button_list = []
 
@@ -48,16 +43,4 @@ class ContinueScreen(BaseScreen):
         finalscore_text_rect = score_text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT-500))
         self.screen.blit(score_text, finalscore_text_rect)
 
-        # draw buttons
-        for button in self.button_list:
-            pygame.draw.rect(self.screen, button.button_colour, button.button_dimensions)
-            self.screen.blit(button.button_text, button.button_text_rect)
-
-    def check_mouse_click(self):
-
-        mouse_x = pygame.mouse.get_pos()[0]
-        mouse_y = pygame.mouse.get_pos()[1]
-
-        for button in self.button_list:
-            if button.clicked(mouse_x, mouse_y):
-                return button.label_text
+        self.draw_buttons()

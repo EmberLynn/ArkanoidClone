@@ -1,3 +1,4 @@
+import os
 import pygame
 from Screens.BaseScreen import BaseScreen
 from Utilities.Button import Button
@@ -22,17 +23,9 @@ class EndScreen(BaseScreen):
         buttonfont = pygame.font.SysFont("Good Times Regular", 30, False)
         titlefont = pygame.font.SysFont("Good Times Regular", 50, False)
 
-        # basic info -- doubling up here; might want to change later
-        self.set_screen_height(SCREEN_HEIGHT)
-        self.set_screen_width(SCREEN_WIDTH)
-        self.set_level_color((SCREEN_COLOR))
-
         # screen text
         self.title = titlefont.render("Game Over!",1,(0,0,0))
         self.quit_button_text = buttonfont.render("Quit",1,(0,0,0))
-
-        # create buttons
-        self.button_list = []
 
         # start button
         start_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)), (77, 148, 255), "Restart Game", (0,0,0), buttonfont)
@@ -60,16 +53,15 @@ class EndScreen(BaseScreen):
         finalscore_text_rect = final_score_text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT-500))
         self.screen.blit(final_score_text, finalscore_text_rect)
 
-        # draw buttons
-        for button in self.button_list:
-            pygame.draw.rect(self.screen, button.button_colour, button.button_dimensions)
-            self.screen.blit(button.button_text, button.button_text_rect)
+        self.draw_buttons()
 
-    def check_mouse_click(self):
+    # needs high score list and current score
+    def check_for_high_score(self, current_score):
 
-        mouse_x = pygame.mouse.get_pos()[0]
-        mouse_y = pygame.mouse.get_pos()[1]
+        high_score_list = self.get_high_scores()
 
-        for button in self.button_list:
-            if button.clicked(mouse_x, mouse_y):
-                return button.label_text
+        # take each item, split it on the ':', make a collection of tuples,
+        # sort lowest to highest, remove lowest score from list, save list of scores
+        # to the high_scores.txt
+
+

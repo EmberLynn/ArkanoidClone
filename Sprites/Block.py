@@ -18,8 +18,8 @@ class Block(pygame.sprite.Sprite):
         self.surf = pygame.Surface((width,height))
 
         # block to be random colour
-        self.colour = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
-        self.surf.fill(self.colour)
+        colour = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
+        self.surf.fill((102, 102, 102))
 
         self.rect = self.surf.get_rect(
             x=block_x,
@@ -27,3 +27,6 @@ class Block(pygame.sprite.Sprite):
         )
 
         self.mask = pygame.mask.from_surface(self.surf)
+
+        pygame.draw.rect(self.surf, (0,0,0), (2,2,width-5,height-5))
+        pygame.draw.rect(self.surf, colour, (0,0,width-5,height-5))

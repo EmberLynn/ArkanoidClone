@@ -1,0 +1,3 @@
+Lime: 1000
+Mario: 720
+John: 200

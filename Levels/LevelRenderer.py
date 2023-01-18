@@ -8,8 +8,7 @@
 # reads files from a folder to generate a set of levels that are returned to the main game
 
 import os
-import pygame
-import traceback
+import sys
 import math
 from Sprites.Block import Block
 from Levels.Level import Level
@@ -87,7 +86,7 @@ class LevelRenderer:
                 except Exception as e:
                     print(e)
                     print("Problem located in" + file.name + " at " + line + " Line number:" + str(linenum))
-                    quit() # we can't go on!
+                    sys.quit() # we can't go on!
             
             # add level to levels
             self.levels.append(new_level)

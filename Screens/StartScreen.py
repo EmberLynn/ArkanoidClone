@@ -11,7 +11,7 @@ from Utilities.Button import Button
 # scores (TBD)
 # version number in top left
 
-VERSION_NUM = .1
+VERSION_NUM = "0.1.1"
 
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 900
@@ -25,24 +25,24 @@ class StartScreen(BaseScreen):
         titlefont = pygame.font.SysFont("Good Times Regular", 50, False)
         tinyfont = pygame.font.SysFont("Good Times Regular", 20, False)
 
-        # basic info -- doubling up here; might want to change later
-        self.set_screen_height(SCREEN_HEIGHT)
-        self.set_screen_width(SCREEN_WIDTH)
-        self.set_level_color((SCREEN_COLOR))
-
         # screen text
         self.title = titlefont.render("BARKanoid!",1,(0,0,0))
         self.version_num = tinyfont.render("Version: " + str(VERSION_NUM),1,(0,0,0))
 
-        # create buttons
-        self.button_list = []
-
         # start button
-        start_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+50), (77, 148, 255), "Start Game", (0,0,0), buttonfont)
+        start_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)), (77, 148, 255), "Start Game", (0,0,0), buttonfont)
         self.button_list.append(start_button)
 
+        # view high scores button
+        high_score_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+70), (77, 148, 255), "High Scores", (0,0,0), buttonfont)
+        self.button_list.append(high_score_button)
+
+        # options button
+        options_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+140), (77, 148, 255), "Options", (0,0,0), buttonfont)
+        self.button_list.append(options_button)
+
         # quit button
-        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+130), (77, 148, 255), "Quit Game", (0,0,0), buttonfont)
+        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Quit Game", (0,0,0), buttonfont)
         self.button_list.append(quit_button)
 
     def draw(self):
@@ -53,20 +53,8 @@ class StartScreen(BaseScreen):
         title_text_rect = self.title.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT-570))
         self.screen.blit(self.title, title_text_rect)
 
-        # draw buttons
-        for button in self.button_list:
-            pygame.draw.rect(self.screen, button.button_colour, button.button_dimensions)
-            self.screen.blit(button.button_text, button.button_text_rect)
-
+        self.draw_buttons()
+        
         # version number
         version_num_text_rect = self.version_num.get_rect(center=(SCREEN_WIDTH-50,SCREEN_HEIGHT-10))
         self.screen.blit(self.version_num, version_num_text_rect)
-    
-    def check_mouse_click(self):
-
-        mouse_x = pygame.mouse.get_pos()[0]
-        mouse_y = pygame.mouse.get_pos()[1]
-
-        for button in self.button_list:
-            if button.clicked(mouse_x, mouse_y):
-                return button.label_text
