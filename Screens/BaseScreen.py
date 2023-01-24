@@ -6,6 +6,7 @@ class BaseScreen:
 
         self.button_list = []
 
+    # TODO replace with collide point
     def check_mouse_click(self):
 
         mouse_x = pygame.mouse.get_pos()[0]

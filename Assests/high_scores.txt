@@ -1,3 +1,6 @@
 Lime: 1000
+Lime: 1500
 Mario: 720
 John: 200
+Sherlock: 2200
+David: 0

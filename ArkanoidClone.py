@@ -21,12 +21,24 @@ from pygame.locals import (
     QUIT
 )
 
+# required setup before rendering
 pygame.init()
-
 pygame.display.set_caption("BARKanoid")
 icon = pygame.image.load("Assests/singledog.png")
 pygame.display.set_icon(icon)
 
+
+# helper functions
+def check_for_quit(event):
+    if event.type == KEYDOWN:
+        if event.key == K_ESCAPE:
+            pygame.quit()
+            sys.exit()
+    elif event.type == QUIT:
+        pygame.quit()
+        sys.exit()
+
+# main game logic
 def main(new_game):
 
     if(new_game):
@@ -56,14 +68,8 @@ def main(new_game):
 
         # always check for exit events before continuing the loop    
         for event in pygame.event.get():
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
-            elif event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == MOUSEBUTTONDOWN:
+            check_for_quit(event)
+            if event.type == MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                     result = startScreen.check_mouse_click()
                     if result == "Start Game":
@@ -72,6 +78,7 @@ def main(new_game):
                     elif result == "Quit Game":
                         runningStart = False
                     elif result == "High Scores":
+
                         # ----------START of High Score Screen Loop-------------
                         runningHighScore = True
                         while runningHighScore:
@@ -80,25 +87,21 @@ def main(new_game):
                             pygame.display.flip()
 
                             for event in pygame.event.get():
-                                if event.type == KEYDOWN:
-                                    if event.key == K_ESCAPE:
-                                        pygame.quit()
-                                        sys.exit()
-                                elif event.type == QUIT:
-                                    pygame.quit()
-                                    sys.exit()
-                                elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                                check_for_quit(event)
+                                if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                                     result = highScoreScreen.check_mouse_click()
                                     if result == "Main Menu":
                                         runningHighScore = False
-            # ----------END of High Score Loop-------------
+                        # ----------END of High Score Loop-------------
+
                     elif result == "Options":
-            # ----------START of Options Loop-------------
+
+                        # ----------START of Options Loop-------------
                         runningOptions = True
                         while runningOptions:
                             runningOptions = False
                             print("To be implemented")
-            # ----------END of Options Loop-------------
+                        # ----------END of Options Loop-------------
 
     # ----------END of Start Screen Loop-------------
 
@@ -109,13 +112,7 @@ def main(new_game):
 
         # always check for exit events before continuing the loop    
         for event in pygame.event.get():
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
-            elif event.type == QUIT:
-                pygame.quit()
-                sys.exit()
+            check_for_quit(event)
 
         # get the new/next level -- levels gets popped -- we don't keep finished levels---
         for level in levelRenderer.levels:
@@ -222,14 +219,8 @@ def main(new_game):
                     pygame.display.flip()
 
                     for event in pygame.event.get():
-                        if event.type == KEYDOWN:
-                            if event.key == K_ESCAPE:
-                                pygame.quit()
-                                sys.exit()
-                        elif event.type == QUIT:
-                            pygame.quit()
-                            sys.exit()
-                        elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                        check_for_quit(event)
+                        if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                             result = continueScreen.check_mouse_click()
                             if result == "Continue?":
                                 runningContinue = False
@@ -245,23 +236,34 @@ def main(new_game):
         endScreen.draw(playerScore)
         pygame.display.flip()
 
+        # ----------START of Enter High Score Loop-------------
+        # instead, have an other variable so we can display playerScore on gameover screen
+        is_highscore = endScreen.check_for_high_score(playerScore)
+        if(is_highscore):
+            runningEnterHighScore = True
+            while runningEnterHighScore:
+                
+                    for event in pygame.event.get():
+                        check_for_quit(event)
+
+                    endScreen.draw_high_score_popup()
+                    playerScore = 0
+                    # clear and draw screen again once done with popup
+                    # endScreen.draw(playerScore)
+                    # pygame.display.flip()
+
+                    runningEnterHighScore = False
+        # ----------START of Enter High Score Loop-------------
+
         for event in pygame.event.get():
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-                elif event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                check_for_quit(event)
+                if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                     result = endScreen.check_mouse_click()
                     if result == "Restart Game":
                         # start new game from main
                         runningGameOver = False
                         main(False)
                     elif result == "Main Menu":
-                        
-                        endScreen.check_for_high_score(current_score=9)
                         runningGameOver = False
                         main(True)
                     elif result == "Quit Game":
