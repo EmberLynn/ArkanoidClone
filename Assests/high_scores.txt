@@ -1,6 +1,5 @@
-Lime: 1000
-Lime: 1500
-Mario: 720
-John: 200
-Sherlock: 2200
-David: 0
+Lime: 90 
+David: 30 
+Dabid2: 30 
+Ruff: 10 
+meow: 0 

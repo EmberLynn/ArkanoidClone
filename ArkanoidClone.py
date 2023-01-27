@@ -55,6 +55,7 @@ def main(new_game):
     clock = pygame.time.Clock()
 
     playerScore = 0
+    displayScore = 0
     myfont = pygame.font.SysFont("Good Times Regular", 25, True)
 
     level_finished = True
@@ -140,6 +141,7 @@ def main(new_game):
             break
 
         if not levelRenderer.levels:
+            displayScore = playerScore
             runningGameOver = True
             runningMain = False
             break
@@ -149,6 +151,7 @@ def main(new_game):
         player.update(pygame.key.get_pressed(), SCREEN_WIDTH)
         
         if ball.update(SCREEN_WIDTH,SCREEN_HEIGHT) == False:
+            displayScore = playerScore
             runningMain = False
             runningGameOver = True
             break
@@ -238,7 +241,7 @@ def main(new_game):
 
         # ----------START of Enter High Score Loop-------------
         # instead, have an other variable so we can display playerScore on gameover screen
-        is_highscore = endScreen.check_for_high_score(playerScore)
+        is_highscore = endScreen.check_for_high_score(displayScore)
         if(is_highscore):
             runningEnterHighScore = True
             while runningEnterHighScore:
@@ -246,11 +249,9 @@ def main(new_game):
                     for event in pygame.event.get():
                         check_for_quit(event)
 
-                    endScreen.draw_high_score_popup()
-                    playerScore = 0
-                    # clear and draw screen again once done with popup
-                    # endScreen.draw(playerScore)
-                    # pygame.display.flip()
+                    player_name = endScreen.draw_high_score_popup()
+                    endScreen.save_high_score(player_name, playerScore)
+                    displayScore = 0
 
                     runningEnterHighScore = False
         # ----------START of Enter High Score Loop-------------

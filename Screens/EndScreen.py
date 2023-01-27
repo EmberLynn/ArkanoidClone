@@ -58,24 +58,18 @@ class EndScreen(BaseScreen):
     # needs high score list and current score
     def check_for_high_score(self, current_score):
 
-        new_high_score = False
+        if current_score <= 0:
+            return False
 
         high_score_list = self.get_high_scores()
+        sorted_scores = self.convert_scores_to_sorted_tup(high_score_list)
 
-        sorted_scores = []
-
-        # create tuple to sort by actual score
-        for line in high_score_list:
-            temp_tup = line.split(":")
-            temp_int = int(temp_tup[1])
-            sorted_scores.append((temp_tup[0],temp_int))
-
-        # assume scores won't be sorted in the file, so sort before check
-        sorted_scores = sorted(sorted_scores, key=lambda tup: tup[1], reverse=True)
+        if(len(sorted_scores) == 0):
+            return True
         if(current_score > sorted_scores[len(sorted_scores)-1][1]):
-            new_high_score = True
+            return True
 
-        return new_high_score
+        return False
 
     # "popup" -- as in mock popup since everything still needs to be drawn
     def draw_high_score_popup(self):
@@ -129,9 +123,52 @@ class EndScreen(BaseScreen):
 
                 elif event.type == pygame.QUIT:
                     return  
-        # once above loop is complete, write score to file
-        # this is going to require some of the above functionality, so might want to write a function
 
+        return input_text
+
+    def save_high_score(self, player_name, high_score):
+
+        # add score to tuple
+        high_score_list = self.get_high_scores()
+        high_score_list.append(player_name + ": " + str(high_score))
+        sorted_scores = self.convert_scores_to_sorted_tup(high_score_list)
+
+        # remove lowest score if sorted scores is > 10 (display limit)
+        if(len(sorted_scores) > 10):
+            sorted_scores.pop()
+
+        # write scores to file
+        absolute_path = os.path.dirname(__file__)
+        relative_path = "..\\Assests"
+        full_path = os.path.join(absolute_path, relative_path)
+        file = os.path.join(full_path,"high_scores.txt")
+
+        # delete current file contents
+        f = open(file,'w')
+        f.close()
+
+        # rewrite the file
+        f = open(file,'a')
+        for entry in sorted_scores:
+            for item in entry:
+                f.write(str(item) + " ")
+            f.write('\n')
+        f.close
+                 
+        
+        
+    def convert_scores_to_sorted_tup(self, scores):
+
+        sorted_scores = []
+
+        for line in scores:
+            temp_tup = line.split(" ")
+            temp_int = int(temp_tup[1])
+            sorted_scores.append((temp_tup[0],temp_int))
+
+        sorted_scores = sorted(sorted_scores, key=lambda tup: tup[1], reverse=True)
+        
+        return sorted_scores
         
 
 

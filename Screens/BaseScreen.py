@@ -34,5 +34,6 @@ class BaseScreen:
         f = open(file,'r')
         for line in f:
             high_score_list.append(line.rstrip('\n'))
+        f.close()
 
         return high_score_list
