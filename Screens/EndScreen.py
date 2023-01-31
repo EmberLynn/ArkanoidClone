@@ -64,7 +64,7 @@ class EndScreen(BaseScreen):
         high_score_list = self.get_high_scores()
         sorted_scores = self.convert_scores_to_sorted_tup(high_score_list)
 
-        if(len(sorted_scores) == 0):
+        if(len(sorted_scores) < 10):
             return True
         if(current_score > sorted_scores[len(sorted_scores)-1][1]):
             return True
@@ -108,6 +108,8 @@ class EndScreen(BaseScreen):
                         return
                     elif event.key == pygame.K_RETURN:
                         prompting_player = False
+                    elif event.key == pygame.K_SPACE:
+                        continue # don't allow spaces in names
                     elif event.key == pygame.K_BACKSPACE:
                         input_text = input_text[:-1] # strips the last char
                     else:

@@ -14,7 +14,7 @@ from Sprites.Block import Block
 from Levels.Level import Level
 
 absolute_path = os.path.dirname(__file__)
-relative_path = "LevelMapsTest"
+relative_path = "LevelMaps"
 full_path = os.path.join(absolute_path, relative_path)
 files = os.listdir(full_path)
 
@@ -44,6 +44,8 @@ class LevelRenderer:
                     new_level.set_block_width(int(''.join(filter(str.isdigit,line))))
                 elif('BLOCK_HEIGHT' in line):
                     new_level.set_block_height(int(''.join(filter(str.isdigit,line))))
+                elif('DIFFICULTY' in line):
+                    new_level.set_difficulty(int(''.join(filter(str.isdigit,line))))
 
                 # handle block groups
                 if('#blocks_section' in line):
@@ -75,7 +77,7 @@ class LevelRenderer:
                                 block_x = (column*new_level.get_block_width())
                                 block_y = (rows*new_level.get_block_height())
 
-                                new_block = Block(block_x,block_y,new_level.get_block_width(),new_level.get_block_height())
+                                new_block = Block(block_x,block_y,new_level.get_block_width(),new_level.get_block_height(),new_level.get_difficulty())
                                 new_level.blocks.add(new_block)
 
                             column += 1
@@ -86,7 +88,7 @@ class LevelRenderer:
                 except Exception as e:
                     print(e)
                     print("Problem located in" + file.name + " at " + line + " Line number:" + str(linenum))
-                    sys.quit() # we can't go on!
+                    sys.exit() # we can't go on!
             
             # add level to levels
             self.levels.append(new_level)

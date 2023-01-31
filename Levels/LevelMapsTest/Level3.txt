@@ -2,13 +2,15 @@ Duplicate this file and fill in all listed variables with desired output for lev
 The dashed lines are a visual representation of how the blocks layout in the level will look.
 Row and column totals are abstracted from the visual. If block width, height, and level width and height
 are not compatible (that many blocks can't fit as that many columns considering the width of the screen!),
-a (helpful) error will be throw.
+a (helpful) error will be throw. Difficulty equates to how many hits each block takes prior to destrcution.
+(Max difficulty is 3 for now)
 
 SCREEN_WIDTH=900
 SCREEN_HEIGHT=600
 LEVEL_COLOR=0,102,34
 BLOCK_WIDTH=75
 BLOCK_HEIGHT=25
+DIFFICULTY=2
 
 Blocks will be rendered on screen from left to right. If block columns do not fit the length of the screen, 
 they will be aligned starting from 0,0 (top left of screen)

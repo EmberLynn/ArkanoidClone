@@ -7,7 +7,7 @@ To Do's:
     - Class of additional screens; only render when required
 2. (DONE)Display final score at end of game and provide option to restart or quit
 3. (DONE)Add continue screen between levels
-4. (IN PROGRESS) Add High Score list to start screen (save top 10 scores of all time)
+4. (DONE)Add High Score list to start screen (save top 10 scores of all time)
 5. Add a system of scaling difficulty (example, blocks take multiple hits):
     - With this, I will add sprites (or something) to blocks to exibit level of damage
 6. Add Roguelite elements to game:
@@ -21,13 +21,13 @@ Others in no particular order (nice-to-haves):
     - Make paddle a dog (BARKanoid is the name, afterall)
     - Have a set of various backgrounds for the LevelRenderer to use
 3. Regardless if it matters in pygame, I'd like to load and unload assets such as screens
-4. Find better way to import modules in directories.
+4. (DONE)Find better way to import modules in directories.
 5. (DONE)Convert Buttons to a class
 6. General code analysis and clean-up
     - Code optimization
     - Fixing mutators and accessors
     - Main (ArkanoidClone.py) is getting large; split into functions
-7. Add black outline to blocks (so they can easily be seen)
+7. (DONE)Add black outline to blocks (so they can easily be seen)
 8. Launcher for the .exe
 9. In Windows, moving the game screen repeatedly or repeatedly focusing on another application can cause the game's surface to misalign with the window (I don't know what the fix would be for this or what is causing the issue)
     - I'm going to add a display mode in an Options menu. Default is NOFRAME but the player can decide to put in windowed mode with a warning that it is not recommended due to the aforementioned.
@@ -35,7 +35,6 @@ Others in no particular order (nice-to-haves):
 
 Here are fantastic suggestions from my test player (Katz) that I will implements:
 - Fart sound effect with block destruction (maybe not my fave suggestion...)
-- Add outline to the blocks so even colour blind individuals can see them all
 - Add a Lime somewhere...
 - For the Roguelike elements:
     - longer bar

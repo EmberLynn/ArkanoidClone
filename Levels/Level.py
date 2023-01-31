@@ -9,6 +9,7 @@ class Level:
         self.__level_color = (0,0,0)
         self.__block_width = 0
         self.__block_height = 0
+        self.__difficulty = 0
 
     def set_screen_width(self, screen_width):
         self.__screen_width=screen_width
@@ -39,3 +40,9 @@ class Level:
     def get_block_height(self):
         return self.__block_height
     block_height=property(get_block_height, set_block_height)
+
+    def set_difficulty(self, difficulty):
+        self.__difficulty=difficulty
+    def get_difficulty(self):
+        return self.__difficulty
+    difficulty=property(set_difficulty,get_difficulty)

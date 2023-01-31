@@ -1,5 +1,10 @@
-Lime: 90 
-David: 30 
-Dabid2: 30 
-Ruff: 10 
-meow: 0 
+Lime: 390 
+Hello: 390 
+woof: 320 
+meow: 260 
+noooooo: 150 
+whoops: 130 
+mmee: 50 
+meow: 20 
+oooops: 20 
+nothing: 20 

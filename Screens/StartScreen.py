@@ -11,7 +11,7 @@ from Utilities.Button import Button
 # scores (TBD)
 # version number in top left
 
-VERSION_NUM = "0.1.1"
+VERSION_NUM = "0.1.2"
 
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 900

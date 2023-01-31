@@ -119,6 +119,8 @@ def main(new_game):
         for level in levelRenderer.levels:
             if(level_finished):
                 currentLevel += 1
+                current_difficulty = level.get_difficulty()
+
                 SCREEN_WIDTH = level.get_screen_width()
                 SCREEN_HEIGHT = level.get_screen_height()
                 INITIAL_COLOR = level.get_level_color()
@@ -135,7 +137,7 @@ def main(new_game):
                 all_sprites = pygame.sprite.Group()
                 all_sprites.add(player)
                 all_sprites.add(ball)
-                all_sprites.add(blocks)
+                # all_sprites.add(blocks)
 
                 level_finished = False
             break
@@ -159,6 +161,9 @@ def main(new_game):
         ## DRAW on screen 
         #in the loop and first or else objects will appear to grow
         screen.fill(INITIAL_COLOR)
+
+        for block in blocks:
+            block.draw(screen, current_difficulty)
 
         for object in all_sprites:
             screen.blit(object.surf, object.rect)
@@ -205,7 +210,7 @@ def main(new_game):
                 ball.bounce("sides")
 
             playerScore += 10
-            block.kill()
+            block.block_hit(screen)
             break
         #------------------------------------------------------------------------------
 
@@ -240,7 +245,6 @@ def main(new_game):
         pygame.display.flip()
 
         # ----------START of Enter High Score Loop-------------
-        # instead, have an other variable so we can display playerScore on gameover screen
         is_highscore = endScreen.check_for_high_score(displayScore)
         if(is_highscore):
             runningEnterHighScore = True
