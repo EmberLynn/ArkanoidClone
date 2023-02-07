@@ -11,7 +11,7 @@ from Utilities.Button import Button
 # scores (TBD)
 # version number in top left
 
-VERSION_NUM = "0.1.2"
+VERSION_NUM = "0.1.3"
 
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 900
@@ -45,8 +45,8 @@ class StartScreen(BaseScreen):
         quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Quit Game", (0,0,0), buttonfont)
         self.button_list.append(quit_button)
 
-    def draw(self):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+    def draw(self, display_flags):
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
         self.screen.fill(SCREEN_COLOR)
 
         # draw title on screen

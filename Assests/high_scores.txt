@@ -1,10 +1,1 @@
-Lime: 390 
-Hello: 390 
-woof: 320 
-meow: 260 
-noooooo: 150 
-whoops: 130 
-mmee: 50 
-meow: 20 
-oooops: 20 
-nothing: 20 
+Troll: 30000

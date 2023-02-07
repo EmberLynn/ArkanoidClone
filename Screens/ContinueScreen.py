@@ -26,8 +26,8 @@ class ContinueScreen(BaseScreen):
         continue_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)), (77, 148, 255), "Continue?", (0,0,0), buttonfont)
         self.button_list.append(continue_button)
 
-    def draw(self, level_num, player_score):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+    def draw(self, display_flags, level_num, player_score):
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
         self.screen.fill(SCREEN_COLOR)
 
         # draw title on screen

@@ -8,6 +8,7 @@ from Screens.StartScreen import StartScreen
 from Screens.EndScreen import EndScreen
 from Screens.ContinueScreen import ContinueScreen
 from Screens.HighScoreScreen import HighScoreScreen
+from Screens.OptionsScreen import OptionsScreen
 
 from pygame.locals import (
     RLEACCEL,
@@ -26,7 +27,7 @@ pygame.init()
 pygame.display.set_caption("BARKanoid")
 icon = pygame.image.load("Assests/singledog.png")
 pygame.display.set_icon(icon)
-
+display_flags = pygame.NOFRAME
 
 # helper functions
 def check_for_quit(event):
@@ -40,6 +41,7 @@ def check_for_quit(event):
 
 # main game logic
 def main(new_game):
+    global display_flags
 
     if(new_game):
         runningStart = True
@@ -64,7 +66,7 @@ def main(new_game):
     # ----------START of Start Screen Loop-------------
     while runningStart:
         startScreen = StartScreen()
-        startScreen.draw()
+        startScreen.draw(display_flags)
         pygame.display.flip()
 
         # always check for exit events before continuing the loop    
@@ -84,7 +86,7 @@ def main(new_game):
                         runningHighScore = True
                         while runningHighScore:
                             highScoreScreen = HighScoreScreen()
-                            highScoreScreen.draw()
+                            highScoreScreen.draw(display_flags)
                             pygame.display.flip()
 
                             for event in pygame.event.get():
@@ -96,12 +98,23 @@ def main(new_game):
                         # ----------END of High Score Loop-------------
 
                     elif result == "Options":
-
                         # ----------START of Options Loop-------------
                         runningOptions = True
+                        optionsScreen = OptionsScreen()
                         while runningOptions:
-                            runningOptions = False
-                            print("To be implemented")
+                            optionsScreen.draw(display_flags)
+                            pygame.display.flip()
+                            # runningOptions = False
+                            for event in pygame.event.get():
+                                check_for_quit(event)
+                                if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                                    result = optionsScreen.check_mouse_click()
+                                    if result == "Main Menu":
+                                        runningOptions = False
+                                    elif result == "ON":
+                                        display_flags = 0
+                                    elif result == "OFF":
+                                        display_flags = pygame.NOFRAME
                         # ----------END of Options Loop-------------
 
     # ----------END of Start Screen Loop-------------
@@ -125,7 +138,7 @@ def main(new_game):
                 SCREEN_HEIGHT = level.get_screen_height()
                 INITIAL_COLOR = level.get_level_color()
 
-                screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+                screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
 
                 player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
                 playerGroup = pygame.sprite.GroupSingle(player)
@@ -223,7 +236,7 @@ def main(new_game):
                 runningContinue = True
                 while runningContinue:
                     continueScreen = ContinueScreen()
-                    continueScreen.draw(currentLevel, playerScore)
+                    continueScreen.draw(display_flags, currentLevel, playerScore)
                     pygame.display.flip()
 
                     for event in pygame.event.get():
@@ -241,7 +254,7 @@ def main(new_game):
     # ----------START of Game Over Loop-------------
     while runningGameOver:
         endScreen = EndScreen()
-        endScreen.draw(playerScore)
+        endScreen.draw(display_flags, playerScore)
         pygame.display.flip()
 
         # ----------START of Enter High Score Loop-------------

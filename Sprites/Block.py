@@ -40,7 +40,6 @@ class Block(pygame.sprite.Sprite):
             self.health -= 1
 
         if self.health == 0:
-            # need to set surface again and draw damage image on top? Could have blocks in control of drawing themselves.
             pygame.draw.rect(self.surf, (255,255,255), self.rect)
 
     def draw(self, screen, difficulty):

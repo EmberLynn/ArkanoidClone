@@ -8,7 +8,7 @@ To Do's:
 2. (DONE)Display final score at end of game and provide option to restart or quit
 3. (DONE)Add continue screen between levels
 4. (DONE)Add High Score list to start screen (save top 10 scores of all time)
-5. Add a system of scaling difficulty (example, blocks take multiple hits):
+5. (DONE)Add a system of scaling difficulty (example, blocks take multiple hits):
     - With this, I will add sprites (or something) to blocks to exibit level of damage
 6. Add Roguelite elements to game:
     - Example. Choice or upgrade after each screen -- a pro that comes with a con?
@@ -30,7 +30,7 @@ Others in no particular order (nice-to-haves):
 7. (DONE)Add black outline to blocks (so they can easily be seen)
 8. Launcher for the .exe
 9. In Windows, moving the game screen repeatedly or repeatedly focusing on another application can cause the game's surface to misalign with the window (I don't know what the fix would be for this or what is causing the issue)
-    - I'm going to add a display mode in an Options menu. Default is NOFRAME but the player can decide to put in windowed mode with a warning that it is not recommended due to the aforementioned.
+    - (DONE but the stated above is still and issue) I'm going to add a display mode in an Options menu. Default is NOFRAME but the player can decide to put in windowed mode with a warning that it is not recommended due to the aforementioned.
 10. I learned about rect.collidepoint -- this would have been an easier way to implement button clicks than what I ended up doing. I'd like to re-write button click implementation to use collidepoint instead.
 
 Here are fantastic suggestions from my test player (Katz) that I will implements:

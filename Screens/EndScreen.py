@@ -39,8 +39,8 @@ class EndScreen(BaseScreen):
         quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+200), (77, 148, 255), "Quit Game", (0,0,0), self.buttonfont)
         self.button_list.append(quit_button)
 
-    def draw(self, player_score):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+    def draw(self, display_flags, player_score):
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
         self.screen.fill(SCREEN_COLOR)
 
         # draw title on screen

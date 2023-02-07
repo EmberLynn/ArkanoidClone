@@ -7,20 +7,23 @@ class Ball(pygame.sprite.Sprite):
         super(Ball,self).__init__()
 
         # bigger ball appears to perform better during collision
-        self.surf = pygame.Surface((10,10))
+        self.surf = pygame.Surface((13,13))
 
         self.colour = [255, 71, 26]
-        self.surf.fill(self.colour)
+        self.surf.fill((102, 102, 102))
 
         self.velocity = [2,5]
 
         self.rect = self.surf.get_rect(
             center = (
-                (screen_width/2),(screen_height-30)
+                (screen_width/2),(screen_height-35)
             )
         )
 
         self.mask = pygame.mask.from_surface(self.surf)
+
+        pygame.draw.rect(self.surf, (0,0,0),(0,0,12,12))
+        pygame.draw.rect(self.surf, self.colour, (0,0,10,10))
 
     def update(self, screen_width, screen_height):
         if(self.rect.x>screen_width or self.rect.x<0):

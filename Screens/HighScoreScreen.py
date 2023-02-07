@@ -27,8 +27,8 @@ class HighScoreScreen(BaseScreen):
         quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Main Menu", (0,0,0), buttonfont)
         self.button_list.append(quit_button)
 
-    def draw(self):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+    def draw(self, display_flags):
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
         self.screen.fill(SCREEN_COLOR)
 
         # draw title on screen
