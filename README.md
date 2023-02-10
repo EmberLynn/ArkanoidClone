@@ -11,7 +11,12 @@ To Do's:
 5. (DONE)Add a system of scaling difficulty (example, blocks take multiple hits):
     - With this, I will add sprites (or something) to blocks to exibit level of damage
 6. Add Roguelite elements to game:
-    - Example. Choice or upgrade after each screen -- a pro that comes with a con?
+    - First, need to create a system that holds and execute boons
+        - The game needs to be manipulated based on what a boon does
+    - Let's start with pure boons:
+        - Faster paddle
+        - longer paddle
+        - get a second ball
 
 Others in no particular order (nice-to-haves):
 

@@ -15,6 +15,7 @@ from Levels.Level import Level
 
 absolute_path = os.path.dirname(__file__)
 relative_path = "LevelMaps"
+# relative_path = "LevelMaps"
 full_path = os.path.join(absolute_path, relative_path)
 files = os.listdir(full_path)
 
@@ -55,7 +56,7 @@ class LevelRenderer:
                     block_section = False
                     continue
                 try:
-                    if(block_section):
+                    if block_section:
                         linelength = len(line)-1
                         maxrows = math.trunc(((new_level.get_screen_height()-50)/new_level.get_block_height())-1) # subtract 1 because rows start at 0
 
@@ -73,7 +74,7 @@ class LevelRenderer:
                         # block rule: rendering always starts at 0,0
                         column = 0
                         for char in line:
-                            if("B" in char):
+                            if "B" in char:
                                 block_x = (column*new_level.get_block_width())
                                 block_y = (rows*new_level.get_block_height())
 

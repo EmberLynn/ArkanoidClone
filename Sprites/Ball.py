@@ -3,7 +3,7 @@ import random
 
 # reference from here: https://www.101computing.net/pong-tutorial-using-pygame-adding-a-bouncing-ball/
 class Ball(pygame.sprite.Sprite):
-    def __init__(self, screen_width, screen_height):
+    def __init__(self):
         super(Ball,self).__init__()
 
         # bigger ball appears to perform better during collision
@@ -14,11 +14,7 @@ class Ball(pygame.sprite.Sprite):
 
         self.velocity = [2,5]
 
-        self.rect = self.surf.get_rect(
-            center = (
-                (screen_width/2),(screen_height-35)
-            )
-        )
+        self.rect = self.surf.get_rect()
 
         self.mask = pygame.mask.from_surface(self.surf)
 

@@ -1,1 +1,10 @@
-Troll: 30000
+Troll: 30000 
+whoops: 1430 
+meow: 240 
+mewo: 140 
+tao: 40 
+me: 30 
+me: 20 
+meow: 20 
+meow: 20 
+end: 10 

@@ -3,12 +3,16 @@ import pygame
 from Sprites.PlayerPaddle import PlayerPaddle
 from Sprites.Block import Block
 from Sprites.Ball import Ball
+
 from Levels.LevelRenderer import LevelRenderer
+
 from Screens.StartScreen import StartScreen
 from Screens.EndScreen import EndScreen
 from Screens.ContinueScreen import ContinueScreen
 from Screens.HighScoreScreen import HighScoreScreen
 from Screens.OptionsScreen import OptionsScreen
+
+from Utilities.BoonHandler import BoonHandler
 
 from pygame.locals import (
     RLEACCEL,
@@ -53,6 +57,13 @@ def main(new_game):
     runningGameOver = False
 
     levelRenderer = LevelRenderer()
+
+    # main sprites
+    player = PlayerPaddle() 
+    playerGroup = pygame.sprite.GroupSingle(player)
+    ball = Ball()
+
+    boonHandler = BoonHandler(player,ball)
 
     clock = pygame.time.Clock()
 
@@ -130,7 +141,7 @@ def main(new_game):
 
         # get the new/next level -- levels gets popped -- we don't keep finished levels---
         for level in levelRenderer.levels:
-            if(level_finished):
+            if level_finished:
                 currentLevel += 1
                 current_difficulty = level.get_difficulty()
 
@@ -140,12 +151,14 @@ def main(new_game):
 
                 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
 
-                player = PlayerPaddle(SCREEN_WIDTH,SCREEN_HEIGHT)
-                playerGroup = pygame.sprite.GroupSingle(player)
+                # set ball and paddle position
+                ball.rect.x = (SCREEN_WIDTH/2)
+                ball.rect.y = (SCREEN_HEIGHT-45)
+                player.rect.x = ((SCREEN_WIDTH/2)-25)
+                player.rect.y = (SCREEN_HEIGHT-20)
 
+                # create function that applies block boons
                 blocks = level.blocks
-
-                ball = Ball(SCREEN_WIDTH,SCREEN_HEIGHT)
 
                 all_sprites = pygame.sprite.Group()
                 all_sprites.add(player)
@@ -236,7 +249,7 @@ def main(new_game):
                 runningContinue = True
                 while runningContinue:
                     continueScreen = ContinueScreen()
-                    continueScreen.draw(display_flags, currentLevel, playerScore)
+                    boon_name = continueScreen.draw(display_flags, currentLevel, playerScore, boonHandler)
                     pygame.display.flip()
 
                     for event in pygame.event.get():
@@ -244,6 +257,7 @@ def main(new_game):
                         if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
                             result = continueScreen.check_mouse_click()
                             if result == "Continue?":
+                                boonHandler.handle_boon(boon_name)
                                 runningContinue = False
             # ----------END of Continue Loop-------------
 
