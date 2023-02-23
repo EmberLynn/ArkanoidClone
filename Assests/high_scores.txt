@@ -1,10 +1,10 @@
 Troll: 30000 
 whoops: 1430 
+lime: 620 
+noooo: 430 
 meow: 240 
+meow: 230 
 mewo: 140 
+meow: 70 
+meow: 50 
 tao: 40 
-me: 30 
-me: 20 
-meow: 20 
-meow: 20 
-end: 10 

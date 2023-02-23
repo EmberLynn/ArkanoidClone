@@ -14,9 +14,9 @@ To Do's:
     - First, need to create a system that holds and execute boons
         - The game needs to be manipulated based on what a boon does
     - Let's start with pure boons:
-        - Faster paddle
-        - longer paddle
-        - get a second ball
+        - (DONE) Faster paddle
+        - (DONE) longer paddle
+        - (DONE) get a second ball
 
 Others in no particular order (nice-to-haves):
 

@@ -4,13 +4,14 @@
 import random
 import pygame
 from Utilities.Boon import Boon
+from Sprites.Ball import Ball
 
 class BoonHandler:
-    def __init__(self, player, ball):
+    def __init__(self, player, ballGroup):
         print("To be implemented")
 
         self.player = player
-        self.ball = ball
+        self.ballGroup = ballGroup
         self.boons = []
 
         # boonHandler creates all boons
@@ -20,8 +21,8 @@ class BoonHandler:
         self.paddle_length_boon = Boon("longer_paddle", False, "Paddle has become longer!")
         self.boons.append(self.paddle_length_boon)
 
-        # self.second_ball_boon = Boon("second_ball", False, "A second ball has been added!")
-        # self.boons.append(self.second_ball_boon)
+        self.second_ball_boon = Boon("extra_ball", False, "An extra ball has been added!")
+        self.boons.append(self.second_ball_boon)
 
         random.shuffle(self.boons)
 
@@ -32,11 +33,14 @@ class BoonHandler:
         elif boon_name == "longer_paddle":
             self.player.paddle_length += 10
             self.player.redraw_paddle()
+        elif boon_name == "extra_ball":
+            new_ball = Ball()
+            self.ballGroup.add(new_ball)
             
-            
-        for boon in self.boons:
-            if boon.name == boon_name:
-                boon.set_active(True)
+        # boons can stack if we want...
+        # for boon in self.boons:
+        #     if boon.name == boon_name:
+        #         boon.set_active(True)
 
     def handle_block_boon(self, block):
         print("To be implemented")

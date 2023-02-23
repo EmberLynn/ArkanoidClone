@@ -61,9 +61,12 @@ def main(new_game):
     # main sprites
     player = PlayerPaddle() 
     playerGroup = pygame.sprite.GroupSingle(player)
-    ball = Ball()
 
-    boonHandler = BoonHandler(player,ball)
+    ballGroup = pygame.sprite.Group()
+    ball = Ball()
+    ballGroup.add(ball)
+
+    boonHandler = BoonHandler(player,ballGroup)
 
     clock = pygame.time.Clock()
 
@@ -151,19 +154,22 @@ def main(new_game):
 
                 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
 
-                # set ball and paddle position
-                ball.rect.x = (SCREEN_WIDTH/2)
-                ball.rect.y = (SCREEN_HEIGHT-45)
+                all_sprites = pygame.sprite.Group()
+
+                # set balls
+                for ball in ballGroup:
+                    ball.rect.x = (SCREEN_WIDTH/2)
+                    ball.rect.y = (SCREEN_HEIGHT-45)
+                    all_sprites.add(ball)
+
+                # set paddle
                 player.rect.x = ((SCREEN_WIDTH/2)-25)
                 player.rect.y = (SCREEN_HEIGHT-20)
+                all_sprites.add(player)
 
                 # create function that applies block boons
                 blocks = level.blocks
 
-                all_sprites = pygame.sprite.Group()
-                all_sprites.add(player)
-                all_sprites.add(ball)
-                # all_sprites.add(blocks)
 
                 level_finished = False
             break
@@ -177,13 +183,15 @@ def main(new_game):
 
         # start the game logic after the level has rendered--------------------------------
         player.update(pygame.key.get_pressed(), SCREEN_WIDTH)
-        
-        if ball.update(SCREEN_WIDTH,SCREEN_HEIGHT) == False:
-            displayScore = playerScore
-            runningMain = False
-            runningGameOver = True
-            break
 
+        for ball in ballGroup:
+            endGame = ball.update(SCREEN_WIDTH,SCREEN_HEIGHT)
+            if endGame == False and len(ballGroup) == 0:
+                displayScore = playerScore
+                runningMain = False
+                runningGameOver = True
+                break
+        
         ## DRAW on screen 
         #in the loop and first or else objects will appear to grow
         screen.fill(INITIAL_COLOR)
@@ -198,46 +206,47 @@ def main(new_game):
         screen.blit(score, (SCREEN_WIDTH-120, 25))
 
         #------------------paddle hit-----------------------------------------------
-        if pygame.sprite.spritecollide(ball, playerGroup, False):
-            if(ball.rect.bottom-5 <= player.rect.top 
-                and ball.rect.top-5 <= player.rect.top
-                and ball.velocity[1] >= 0):
-                ball.bounce("top_or_bottom")
+        for ball in ballGroup:
+            if pygame.sprite.spritecollide(ball, playerGroup, False):
+                if(ball.rect.bottom-5 <= player.rect.top 
+                    and ball.rect.top-5 <= player.rect.top
+                    and ball.velocity[1] >= 0):
+                    ball.bounce("top_or_bottom")
         #---------------------------------------------------------------------------
 
         #------------------block hits-----------------------------------------------
-        blocks_hit = pygame.sprite.spritecollide(ball, blocks, False)
+            blocks_hit = pygame.sprite.spritecollide(ball, blocks, False)
 
-        for block in blocks_hit:
+            for block in blocks_hit:
 
-            # keeping hit logic seperate for easier readability
-            # -5 and +5 is for offset from imperfect pixel collision on rects
-            # check velocity on top and bottom bounce eliminates sometimes registering top or bottom bounce when it should be side bounce
-            
-            # top bounce
-            if(ball.rect.bottom-5 <= block.rect.top 
-                and ball.rect.top-5 <= block.rect.top
-                and ball.velocity[1] >= 0):
-                ball.bounce("top_or_bottom")
-            # bottom bounce
-            elif(ball.rect.bottom+5 >= block.rect.bottom 
-                and ball.rect.top+5 >= block.rect.bottom
-                and ball.velocity[1] < 0):
-                ball.bounce("top_or_bottom")
+                # keeping hit logic seperate for easier readability
+                # -5 and +5 is for offset from imperfect pixel collision on rects
+                # check velocity on top and bottom bounce eliminates sometimes registering top or bottom bounce when it should be side bounce
+                
+                # top bounce
+                if(ball.rect.bottom-5 <= block.rect.top 
+                    and ball.rect.top-5 <= block.rect.top
+                    and ball.velocity[1] >= 0):
+                    ball.bounce("top_or_bottom")
+                # bottom bounce
+                elif(ball.rect.bottom+5 >= block.rect.bottom 
+                    and ball.rect.top+5 >= block.rect.bottom
+                    and ball.velocity[1] < 0):
+                    ball.bounce("top_or_bottom")
 
-            # left bounce
-            elif(ball.rect.left-5 <= block.rect.left
-                and ball.rect.right-5 <= block.rect.left):
-                ball.bounce("sides")
+                # left bounce
+                elif(ball.rect.left-5 <= block.rect.left
+                    and ball.rect.right-5 <= block.rect.left):
+                    ball.bounce("sides")
 
-            # right bounce
-            elif(ball.rect.left+5 >= block.rect.right 
-                and ball.rect.right+5 >= block.rect.right):
-                ball.bounce("sides")
+                # right bounce
+                elif(ball.rect.left+5 >= block.rect.right 
+                    and ball.rect.right+5 >= block.rect.right):
+                    ball.bounce("sides")
 
-            playerScore += 10
-            block.block_hit(screen)
-            break
+                playerScore += 10
+                block.block_hit(screen)
+                break
         #------------------------------------------------------------------------------
 
         if not blocks:
@@ -254,11 +263,12 @@ def main(new_game):
 
                     for event in pygame.event.get():
                         check_for_quit(event)
-                        if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                            result = continueScreen.check_mouse_click()
-                            if result == "Continue?":
-                                boonHandler.handle_boon(boon_name)
-                                runningContinue = False
+                        if event.type == MOUSEBUTTONDOWN:
+                            if event.button == 1:
+                                result = continueScreen.check_mouse_click()
+                                if result == "Continue?":
+                                    boonHandler.handle_boon(boon_name)
+                                    runningContinue = False
             # ----------END of Continue Loop-------------
 
         pygame.display.flip()
