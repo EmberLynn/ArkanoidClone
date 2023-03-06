@@ -6,6 +6,12 @@ class BaseScreen:
 
         self.button_list = []
 
+        self.screen_width = 0
+        self.screen_height = 0
+
+    def draw(self):
+        self.screen = pygame.display.set_mode((self.screen_width,self.screen_height))
+
     # TODO replace with collide point
     def check_mouse_click(self):
 
@@ -18,7 +24,7 @@ class BaseScreen:
 
     def draw_buttons(self):
         for button in self.button_list:
-            pygame.draw.rect(self.screen, button.button_colour, button.button_dimensions)
+            pygame.draw.rect(self.screen, button.button_colour, button.rect)
             self.screen.blit(button.button_text, button.button_text_rect)
 
     # because EndScreen and HighScoreScreen need access to this

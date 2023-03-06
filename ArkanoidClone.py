@@ -31,9 +31,14 @@ pygame.init()
 pygame.display.set_caption("BARKanoid")
 icon = pygame.image.load("Assests/singledog.png")
 pygame.display.set_icon(icon)
-display_flags = pygame.NOFRAME
 
-# helper functions
+# music and effects
+pygame.mixer.init()
+pygame.mixer.music.load("Assests/vastness.mp3")
+pygame.mixer.music.play(-1)
+
+# ------------------------  helper functions -----------------------------------
+# ------------------------------------------------------------------------------
 def check_for_quit(event):
     if event.type == KEYDOWN:
         if event.key == K_ESCAPE:
@@ -43,9 +48,23 @@ def check_for_quit(event):
         pygame.quit()
         sys.exit()
 
-# main game logic
+# takes a button action and preforms it -- all button actions must be implemented here
+def call_button_function(action):
+    print("To be implemented")
+
+# -----------------------------------------------------------------------------
+# ------------------------ end of helper functions ----------------------------
+
+# ------------------------------  main game logic
 def main(new_game):
-    global display_flags
+
+    # globals are manipulated by buttons
+    global runningStart
+    global runningMain
+
+    # screens // declared to nothing here and get assigned/destroyed as needed
+    global currentScreen
+    currentScreen = None
 
     if(new_game):
         runningStart = True
@@ -79,64 +98,79 @@ def main(new_game):
 
     # ----------START of Start Screen Loop-------------
     while runningStart:
-        startScreen = StartScreen()
-        startScreen.draw(display_flags)
-        pygame.display.flip()
+
+        if currentScreen is None:
+            currentScreen = StartScreen()
+            currentScreen.draw()
+        currentScreen.update()
 
         # always check for exit events before continuing the loop    
         for event in pygame.event.get():
             check_for_quit(event)
             if event.type == MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                    result = startScreen.check_mouse_click()
+                    for button in currentScreen.button_list:
+                        if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
+                            print("to be implemented")
+                            # get button action and call required method
+                    result = currentScreen.check_mouse_click()
                     if result == "Start Game":
                         runningStart = False
                         runningMain = True
+                        currentScreen = None
                     elif result == "Quit Game":
                         runningStart = False
                     elif result == "High Scores":
-
+                        currentScreen = None
                         # ----------START of High Score Screen Loop-------------
                         runningHighScore = True
                         while runningHighScore:
-                            highScoreScreen = HighScoreScreen()
-                            highScoreScreen.draw(display_flags)
-                            pygame.display.flip()
+
+                            if currentScreen is None:
+                                currentScreen = HighScoreScreen()
+                                currentScreen.draw()
+                            currentScreen.update()
 
                             for event in pygame.event.get():
                                 check_for_quit(event)
                                 if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                                    result = highScoreScreen.check_mouse_click()
+                                    result = currentScreen.check_mouse_click()
                                     if result == "Main Menu":
                                         runningHighScore = False
+                                        currentScreen = None
+                            
+                            pygame.display.flip()
                         # ----------END of High Score Loop-------------
 
                     elif result == "Options":
                         # ----------START of Options Loop-------------
+                        currentScreen = None
                         runningOptions = True
-                        optionsScreen = OptionsScreen()
                         while runningOptions:
-                            optionsScreen.draw(display_flags)
-                            pygame.display.flip()
-                            # runningOptions = False
+
+                            if currentScreen is None:
+                                currentScreen = OptionsScreen()
+                                currentScreen.draw()
+                            currentScreen.update()
+
                             for event in pygame.event.get():
                                 check_for_quit(event)
                                 if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                                    result = optionsScreen.check_mouse_click()
+                                    result = currentScreen.check_mouse_click()
                                     if result == "Main Menu":
                                         runningOptions = False
-                                    elif result == "ON":
-                                        display_flags = 0
-                                    elif result == "OFF":
-                                        display_flags = pygame.NOFRAME
+                                        currentScreen = None
+
+                            pygame.display.flip()        
                         # ----------END of Options Loop-------------
+        pygame.display.flip()
 
     # ----------END of Start Screen Loop-------------
 
     # ----------START of Main Game Loop-------------
     while runningMain:
 
-        clock.tick(40)
+        clock.tick(60)
 
         # always check for exit events before continuing the loop    
         for event in pygame.event.get():
@@ -152,7 +186,8 @@ def main(new_game):
                 SCREEN_HEIGHT = level.get_screen_height()
                 INITIAL_COLOR = level.get_level_color()
 
-                screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
+                screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+                print("Drawing main screen!")
 
                 all_sprites = pygame.sprite.Group()
 
@@ -257,18 +292,23 @@ def main(new_game):
             if(len(levelRenderer.levels) > 0):
                 runningContinue = True
                 while runningContinue:
-                    continueScreen = ContinueScreen()
-                    boon_name = continueScreen.draw(display_flags, currentLevel, playerScore, boonHandler)
-                    pygame.display.flip()
+
+                    if currentScreen is None:
+                        currentScreen = ContinueScreen()
+                        boon_name = currentScreen.draw()
+                    currentScreen.update(currentLevel, playerScore, boonHandler)
 
                     for event in pygame.event.get():
                         check_for_quit(event)
                         if event.type == MOUSEBUTTONDOWN:
                             if event.button == 1:
-                                result = continueScreen.check_mouse_click()
+                                result = currentScreen.check_mouse_click()
                                 if result == "Continue?":
                                     boonHandler.handle_boon(boon_name)
                                     runningContinue = False
+                                    currentScreen = None
+
+                    pygame.display.flip()
             # ----------END of Continue Loop-------------
 
         pygame.display.flip()
@@ -277,30 +317,32 @@ def main(new_game):
 
     # ----------START of Game Over Loop-------------
     while runningGameOver:
-        endScreen = EndScreen()
-        endScreen.draw(display_flags, playerScore)
-        pygame.display.flip()
+
+        if currentScreen is None:
+            currentScreen = EndScreen()
+            currentScreen.draw()
+        currentScreen.update(playerScore)
 
         # ----------START of Enter High Score Loop-------------
-        is_highscore = endScreen.check_for_high_score(displayScore)
+        is_highscore = currentScreen.check_for_high_score(displayScore)
         if(is_highscore):
             runningEnterHighScore = True
             while runningEnterHighScore:
-                
-                    for event in pygame.event.get():
-                        check_for_quit(event)
+                    
+                for event in pygame.event.get():
+                    check_for_quit(event)
 
-                    player_name = endScreen.draw_high_score_popup()
-                    endScreen.save_high_score(player_name, playerScore)
-                    displayScore = 0
+                player_name = currentScreen.draw_high_score_popup()
+                currentScreen.save_high_score(player_name, playerScore)
+                displayScore = 0
 
-                    runningEnterHighScore = False
+                runningEnterHighScore = False
         # ----------START of Enter High Score Loop-------------
 
         for event in pygame.event.get():
                 check_for_quit(event)
                 if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                    result = endScreen.check_mouse_click()
+                    result = currentScreen.check_mouse_click()
                     if result == "Restart Game":
                         # start new game from main
                         runningGameOver = False
@@ -311,6 +353,8 @@ def main(new_game):
                     elif result == "Quit Game":
                         pygame.quit()
                         sys.exit()
+
+        pygame.display.flip()
     # ----------END of Game Over Loop-------------
 
 main(True)

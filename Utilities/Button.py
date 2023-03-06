@@ -18,7 +18,7 @@
 import pygame
 
 class Button:
-    def __init__(self, width, height, center, button_colour, button_label, label_colour, label_font):
+    def __init__(self, width, height, center, button_colour, button_label, label_colour, label_font, button_action):
 
         # take Y and subtract half the height to get top
         self.__top = center[1] - (height/2)
@@ -38,6 +38,15 @@ class Button:
         self.__label_colour = label_colour
         # optional (default is pygame.font.SysFont("Good Times Regular", 30, False))
         self.__label_font = label_font
+
+        # use this instead along with collidepoint
+        self.surf = pygame.Surface((width,height))
+        self.rect = self.surf.get_rect(
+            center=center
+        )
+
+        # button actions are defined in main and assigned to a button -- what action to perform when clicked
+        self.button_action = button_action
 
         # dimensions for drawing button
         self.button_dimensions = (self.__left, self.__top, width, height)

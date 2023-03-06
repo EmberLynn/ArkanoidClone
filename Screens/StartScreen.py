@@ -25,30 +25,32 @@ class StartScreen(BaseScreen):
         titlefont = pygame.font.SysFont("Good Times Regular", 50, False)
         tinyfont = pygame.font.SysFont("Good Times Regular", 20, False)
 
+        # screen size
+        self.screen_height = SCREEN_HEIGHT
+        self.screen_width = SCREEN_WIDTH
+
         # screen text
         self.title = titlefont.render("BARKanoid!",1,(0,0,0))
         self.version_num = tinyfont.render("Version: " + str(VERSION_NUM),1,(0,0,0))
 
         # start button
-        start_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)), (77, 148, 255), "Start Game", (0,0,0), buttonfont)
+        start_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)), (77, 148, 255), "Start Game", (0,0,0), buttonfont, "start")
         self.button_list.append(start_button)
 
         # view high scores button
-        high_score_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+70), (77, 148, 255), "High Scores", (0,0,0), buttonfont)
+        high_score_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+70), (77, 148, 255), "High Scores", (0,0,0), buttonfont, "")
         self.button_list.append(high_score_button)
 
         # options button
-        options_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+140), (77, 148, 255), "Options", (0,0,0), buttonfont)
+        options_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+140), (77, 148, 255), "Options", (0,0,0), buttonfont, "")
         self.button_list.append(options_button)
 
         # quit button
-        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Quit Game", (0,0,0), buttonfont)
+        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Quit Game", (0,0,0), buttonfont, "")
         self.button_list.append(quit_button)
 
-    def draw(self, display_flags):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
+    def update(self):
         self.screen.fill(SCREEN_COLOR)
-
         # draw title on screen
         title_text_rect = self.title.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT-570))
         self.screen.blit(self.title, title_text_rect)

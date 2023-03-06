@@ -20,15 +20,18 @@ class HighScoreScreen(BaseScreen):
         buttonfont = pygame.font.SysFont("Good Times Regular", 30, False)
         titlefont = pygame.font.SysFont("Good Times Regular", 50, False)
 
+        # screen size
+        self.screen_height = SCREEN_HEIGHT
+        self.screen_width = SCREEN_WIDTH
+
         # screen text
         self.title = titlefont.render("Top 10 High Scores:",1,(0,0,0))
 
         # main menu button
-        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Main Menu", (0,0,0), buttonfont)
+        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Main Menu", (0,0,0), buttonfont, "")
         self.button_list.append(quit_button)
 
-    def draw(self, display_flags):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), display_flags)
+    def update(self):
         self.screen.fill(SCREEN_COLOR)
 
         # draw title on screen
