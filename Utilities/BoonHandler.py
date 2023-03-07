@@ -8,7 +8,6 @@ from Sprites.Ball import Ball
 
 class BoonHandler:
     def __init__(self, player, ballGroup):
-        print("To be implemented")
 
         self.player = player
         self.ballGroup = ballGroup
@@ -29,7 +28,7 @@ class BoonHandler:
     def handle_boon(self, boon_name):
 
         if boon_name == "paddle_speed":
-            self.player.paddlespeed += 5
+            self.player.paddlespeed += 2
         elif boon_name == "longer_paddle":
             self.player.paddle_length += 10
             self.player.redraw_paddle()

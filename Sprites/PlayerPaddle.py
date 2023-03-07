@@ -21,7 +21,7 @@ class PlayerPaddle(pygame.sprite.Sprite):
         self.surf.fill((102, 102, 102))
         self.rect = self.surf.get_rect()
 
-        self.paddlespeed = 10 # starting speed of paddle
+        self.paddlespeed = 5 # starting speed of paddle
 
         pygame.draw.rect(self.surf, (0,0,0),(0,0,self.paddle_length-2,7))
         pygame.draw.rect(self.surf, (255,255,255),(0,0,self.paddle_length-4,5))

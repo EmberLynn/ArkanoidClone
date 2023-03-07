@@ -34,8 +34,8 @@ Others in no particular order (nice-to-haves):
     - Main (ArkanoidClone.py) is getting large; split into functions
 7. (DONE)Add black outline to blocks (so they can easily be seen)
 8. Launcher for the .exe
-9. In Windows, moving the game screen repeatedly or repeatedly focusing on another application can cause the game's surface to misalign with the window (I don't know what the fix would be for this or what is causing the issue)
-    - (DONE but the stated above is still and issue) I'm going to add a display mode in an Options menu. Default is NOFRAME but the player can decide to put in windowed mode with a warning that it is not recommended due to the aforementioned.
+9. (DONE)In Windows, moving the game screen repeatedly or repeatedly focusing on another application can cause the game's surface to misalign with the window (I don't know what the fix would be for this or what is causing the issue)
+    - NOTE: it was a me problem not a Windows problem and I fixed it when I updated to Python 3.10 and the newer PyGame version
 10. I learned about rect.collidepoint -- this would have been an easier way to implement button clicks than what I ended up doing. I'd like to re-write button click implementation to use collidepoint instead.
 
 Here are fantastic suggestions from my test player (Katz) that I will implements:

@@ -12,7 +12,7 @@ class Ball(pygame.sprite.Sprite):
         self.colour = [255, 71, 26]
         self.surf.fill((102, 102, 102))
 
-        self.velocity = [2,5]
+        self.velocity = [1,3]
 
         self.rect = self.surf.get_rect()
 
@@ -22,7 +22,7 @@ class Ball(pygame.sprite.Sprite):
         pygame.draw.rect(self.surf, self.colour, (0,0,10,10))
 
     def update(self, screen_width, screen_height):
-        if(self.rect.x>screen_width or self.rect.x<0):
+        if(self.rect.x>screen_width-10 or self.rect.x<0):
                 self.velocity[0] = -self.velocity[0]
         if(self.rect.y<0):
             self.velocity[1] = -self.velocity[1]
@@ -35,19 +35,18 @@ class Ball(pygame.sprite.Sprite):
 
         return True
 
-    # not good for hitting top or side of block
     def bounce(self, area_hit):
 
         #top or bottom hit
         if(area_hit == "top_or_bottom"):
             self.velocity[1] = -self.velocity[1]
             if(self.velocity[0] < 0):
-                self.velocity[0] = -random.randint(2,5)
+                self.velocity[0] = -random.randint(2,4)
             else:
-                self.velocity[0] = random.randint(2,5)
+                self.velocity[0] = random.randint(2,4)
         if(area_hit == "sides"):
             self.velocity[0] = -self.velocity[0]
             if(self.velocity[1] < 0):
-                self.velocity[1] = -random.randint(2,5)
+                self.velocity[1] = -random.randint(2,4)
             else:
-                self.velocity[1] = random.randint(2,5)
+                self.velocity[1] = random.randint(2,4)

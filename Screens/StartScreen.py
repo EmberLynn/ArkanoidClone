@@ -38,15 +38,15 @@ class StartScreen(BaseScreen):
         self.button_list.append(start_button)
 
         # view high scores button
-        high_score_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+70), (77, 148, 255), "High Scores", (0,0,0), buttonfont, "")
+        high_score_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+70), (77, 148, 255), "High Scores", (0,0,0), buttonfont, "highscores")
         self.button_list.append(high_score_button)
 
         # options button
-        options_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+140), (77, 148, 255), "Options", (0,0,0), buttonfont, "")
+        options_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+140), (77, 148, 255), "Options", (0,0,0), buttonfont, "options")
         self.button_list.append(options_button)
 
         # quit button
-        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Quit Game", (0,0,0), buttonfont, "")
+        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Quit Game", (0,0,0), buttonfont, "quit")
         self.button_list.append(quit_button)
 
     def update(self):

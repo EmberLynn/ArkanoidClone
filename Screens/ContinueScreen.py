@@ -31,7 +31,7 @@ class ContinueScreen(BaseScreen):
         continue_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+100), (77, 148, 255), "Continue?", (0,0,0), buttonfont, "")
         self.button_list.append(continue_button)
 
-    def update(self, level_num, player_score, boon_handler):
+    def update(self, level_num, player_score, boon_handler, boon_number):
         self.screen.fill(SCREEN_COLOR)
 
         # draw title on screen
@@ -48,12 +48,16 @@ class ContinueScreen(BaseScreen):
         self.screen.blit(score_text, finalscore_text_rect)
 
         # loop through all possible boons and offer the player a boon they don't have
-        for boon in boon_handler.boons:
-            # if the boon hasn't been selected before
-            if boon.get_active() == False:
-                boon_description = boon.get_description()
-                boon_name = boon.get_name()
-                break # only want ONE boon
+        # for boon in boon_handler.boons:
+        #     # if the boon hasn't been selected before
+        #     if boon.get_active() == False:
+        #         boon_description = boon.get_description()
+        #         boon_name = boon.get_name()
+        #         break # only want ONE boon
+
+        boon = boon_handler.boons[boon_number]
+        boon_description = boon.get_description()
+        boon_name =  boon.get_name()
 
         # draw boon name on screen
         boon_text = titlefont.render(boon_description, 1,(0,0,0))
