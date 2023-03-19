@@ -5,7 +5,8 @@ from Screens.BaseScreen import BaseScreen
 class MainGame:
     def __init__(self):
 
-        self.runningStart = False
+        # default is to show the main menu -- start screen
+        self.runningStart = True
         self.runningMain = False
 
         self.currentScreen = None

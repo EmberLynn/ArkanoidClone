@@ -32,15 +32,15 @@ class EndScreen(BaseScreen):
         self.quit_button_text = self.buttonfont.render("Quit",1,(0,0,0))
 
         # start button
-        start_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)), (77, 148, 255), "Restart Game", (0,0,0), self.buttonfont, "")
+        start_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)), (77, 148, 255), "Restart Game", (0,0,0), self.buttonfont, "start")
         self.button_list.append(start_button)
 
         # return to menu button
-        menu_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+100), (77, 148, 255), "Main Menu", (0,0,0), self.buttonfont, "")
+        menu_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+100), (77, 148, 255), "Main Menu", (0,0,0), self.buttonfont, "main")
         self.button_list.append(menu_button)
 
         # quit button
-        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+200), (77, 148, 255), "Quit Game", (0,0,0), self.buttonfont, "")
+        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+200), (77, 148, 255), "Quit Game", (0,0,0), self.buttonfont, "quit")
         self.button_list.append(quit_button)
 
     def update(self, player_score):

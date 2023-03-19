@@ -33,6 +33,8 @@ pygame.init()
 pygame.display.set_caption("BARKanoid")
 icon = pygame.image.load("Assests/singledog.png")
 pygame.display.set_icon(icon)
+main = True
+new_game = True
 
 # music and effects
 pygame.mixer.init()
@@ -57,9 +59,12 @@ def check_for_quit(event):
 def call_button_function(action):
     mg.currentScreen = None
     match action:
-        case "start":
+        case "start": # starts the game
             mg.runningStart = False
             mg.runningMain = True
+        case "main": # goes to main screen -- start screen
+            mg.runningStart = True
+            mg.runningMain = False
         case "highscores":
             run_high_score_screen()
         case "options":
@@ -68,6 +73,11 @@ def call_button_function(action):
             pygame.quit()
             sys.exit()
 
+        # option functions
+        case "music_on":
+            pygame.mixer.music.play(-1)
+        case "music_off":
+            pygame.mixer.music.stop()
 
 def run_high_score_screen():
     runningHighScore = True
@@ -80,12 +90,15 @@ def run_high_score_screen():
 
         for event in pygame.event.get():
             check_for_quit(event)
-            if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                result = mg.currentScreen.check_mouse_click()
-                if result == "Main Menu":
+            if event.type == MOUSEBUTTONDOWN:
+                if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                    for button in mg.currentScreen.button_list:
+                        if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
+                            # get button action and call required method
+                            call_button_function(button.button_action)
+                            break
                     runningHighScore = False
-                    mg.currentScreen = None
-        
+
         pygame.display.flip()
 
 def run_options_screen():
@@ -99,11 +112,14 @@ def run_options_screen():
 
         for event in pygame.event.get():
             check_for_quit(event)
-            if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                result = mg.currentScreen.check_mouse_click()
-                if result == "Main Menu":
+            if event.type == MOUSEBUTTONDOWN:
+                if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                    for button in mg.currentScreen.button_list:
+                        if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
+                            # get button action and call required method
+                            call_button_function(button.button_action)
+                            break
                     runningOptions = False
-                    mg.currentScreen = None
 
         pygame.display.flip()        
 
@@ -133,16 +149,9 @@ def run_continue_screen():
 # ------------------------ end of helper functions ----------------------------
 
 # ------------------------------  main game logic
-def main(new_game):
+while main:
 
     mg.currentScreen = None
-
-    if(new_game):
-        mg.runningStart = True
-        mg.runningMain = False
-    else:
-        mg.runningStart = False
-        mg.runningMain = True
 
     runningGameOver = False
 
@@ -345,22 +354,17 @@ def main(new_game):
 
         for event in pygame.event.get():
                 check_for_quit(event)
-                if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
-                    result = mg.currentScreen.check_mouse_click()
-                    if result == "Restart Game":
-                        # start new game from main
+                if event.type == MOUSEBUTTONDOWN:
+                    if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                        for button in mg.currentScreen.button_list:
+                            if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
+                                # get button action and call required method
+                                call_button_function(button.button_action)
+                                break
                         runningGameOver = False
-                        main(False)
-                    elif result == "Main Menu":
-                        runningGameOver = False
-                        main(True)
-                    elif result == "Quit Game":
-                        pygame.quit()
-                        sys.exit()
 
         pygame.display.flip()
     # ----------END of Game Over Loop-------------
 
-main(True)
-# pygame.quit()
-# sys.exit()
+pygame.quit()
+sys.exit()

@@ -28,7 +28,7 @@ class HighScoreScreen(BaseScreen):
         self.title = titlefont.render("Top 10 High Scores:",1,(0,0,0))
 
         # main menu button
-        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Main Menu", (0,0,0), buttonfont, "")
+        quit_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+210), (77, 148, 255), "Main Menu", (0,0,0), buttonfont, "main")
         self.button_list.append(quit_button)
 
     def update(self):

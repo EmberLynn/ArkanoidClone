@@ -33,10 +33,10 @@ class OptionsScreen(BaseScreen):
         self.button_list = []
 
         # option 1 on button
-        self.option1_on_button = Button(100, 60, ((SCREEN_WIDTH/2)+100, (SCREEN_HEIGHT-480)), (77, 148, 255), "ON", (0,0,0), buttonfont, "")
+        self.option1_on_button = Button(100, 60, ((SCREEN_WIDTH/2)+100, (SCREEN_HEIGHT-480)), (77, 148, 255), "ON", (0,0,0), buttonfont, "music_on")
         self.button_list.append(self.option1_on_button)
         # option 1 off button
-        self.option1_off_button = Button(100, 60, ((SCREEN_WIDTH/2)+200, (SCREEN_HEIGHT-480)), (77, 148, 255), "OFF", (0,0,0), buttonfont, "")
+        self.option1_off_button = Button(100, 60, ((SCREEN_WIDTH/2)+200, (SCREEN_HEIGHT-480)), (77, 148, 255), "OFF", (0,0,0), buttonfont, "music_off")
         self.button_list.append(self.option1_off_button)
 
         # return to menu button

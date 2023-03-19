@@ -25,18 +25,20 @@ Others in no particular order (nice-to-haves):
     - Make ball a round sprite
     - Make paddle a dog (BARKanoid is the name, afterall)
     - Have a set of various backgrounds for the LevelRenderer to use
-3. Regardless if it matters in pygame, I'd like to load and unload assets such as screens
+3. (DONE)Regardless if it matters in pygame, I'd like to load and unload assets such as screens
+    - clearing and writing to one object as needed
 4. (DONE)Find better way to import modules in directories.
 5. (DONE)Convert Buttons to a class
 6. General code analysis and clean-up
     - Code optimization
     - Fixing mutators and accessors
     - Main (ArkanoidClone.py) is getting large; split into functions
+        - Working on it... but not sure if it is making it more confusing or not...
 7. (DONE)Add black outline to blocks (so they can easily be seen)
 8. Launcher for the .exe
 9. (DONE)In Windows, moving the game screen repeatedly or repeatedly focusing on another application can cause the game's surface to misalign with the window (I don't know what the fix would be for this or what is causing the issue)
     - NOTE: it was a me problem not a Windows problem and I fixed it when I updated to Python 3.10 and the newer PyGame version
-10. I learned about rect.collidepoint -- this would have been an easier way to implement button clicks than what I ended up doing. I'd like to re-write button click implementation to use collidepoint instead.
+10. (In Progress)I learned about rect.collidepoint -- this would have been an easier way to implement button clicks than what I ended up doing. I'd like to re-write button click implementation to use collidepoint instead.
 
 Here are fantastic suggestions from my test player (Katz) that I will implements:
 - Fart sound effect with block destruction (maybe not my fave suggestion...)
