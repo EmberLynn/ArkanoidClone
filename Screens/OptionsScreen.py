@@ -40,7 +40,7 @@ class OptionsScreen(BaseScreen):
         self.button_list.append(self.option1_off_button)
 
         # return to menu button
-        menu_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+100), (77, 148, 255), "Main Menu", (0,0,0), buttonfont, "")
+        menu_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+100), (77, 148, 255), "Main Menu", (0,0,0), buttonfont, "main")
         self.button_list.append(menu_button)
 
     def update(self):

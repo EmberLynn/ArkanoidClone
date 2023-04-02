@@ -56,19 +56,23 @@ def check_for_quit(event):
         sys.exit()
 
 # takes a button action and preforms it -- all button actions must be implemented here
-def call_button_function(action):
+def call_button_function(button):
     mg.currentScreen = None
-    match action:
+    match button.button_action:
         case "start": # starts the game
             mg.runningStart = False
             mg.runningMain = True
         case "main": # goes to main screen -- start screen
             mg.runningStart = True
             mg.runningMain = False
+            return True
         case "highscores":
             run_high_score_screen()
         case "options":
             run_options_screen()
+        case "continue":
+            # get and handle boon
+            mg.boonHandler.handle_boon(mg.boon_name) 
         case "quit":
             pygame.quit()
             sys.exit()
@@ -76,8 +80,10 @@ def call_button_function(action):
         # option functions
         case "music_on":
             pygame.mixer.music.play(-1)
+            return False
         case "music_off":
             pygame.mixer.music.stop()
+            return False
 
 def run_high_score_screen():
     runningHighScore = True
@@ -95,7 +101,7 @@ def run_high_score_screen():
                     for button in mg.currentScreen.button_list:
                         if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
                             # get button action and call required method
-                            call_button_function(button.button_action)
+                            call_button_function(button)
                             break
                     runningHighScore = False
 
@@ -103,6 +109,8 @@ def run_high_score_screen():
 
 def run_options_screen():
     runningOptions = True
+    exit_options = False
+
     while runningOptions:
 
         if mg.currentScreen is None:
@@ -117,9 +125,10 @@ def run_options_screen():
                     for button in mg.currentScreen.button_list:
                         if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
                             # get button action and call required method
-                            call_button_function(button.button_action)
+                            exit_options = call_button_function(button)
                             break
-                    runningOptions = False
+        if exit_options:
+            runningOptions = False
 
         pygame.display.flip()        
 
@@ -131,17 +140,19 @@ def run_continue_screen():
             mg.currentScreen = ContinueScreen()
             mg.currentScreen.draw()
             boon_number = random.randint(0,len(mg.boonHandler.boons)-1)
-        boon_name = mg.currentScreen.update(mg.currentLevel, mg.playerScore, mg.boonHandler, boon_number)
+
+        mg.boon_name = mg.currentScreen.update(mg.currentLevel, mg.playerScore, mg.boonHandler, boon_number)
 
         for event in pygame.event.get():
             check_for_quit(event)
             if event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    result = mg.currentScreen.check_mouse_click()
-                    if result == "Continue?":
-                        mg.boonHandler.handle_boon(boon_name)
-                        runningContinue = False
-                        mg.currentScreen = None
+                if pygame.mouse.get_pressed(num_buttons=3) == (1,0,0):
+                    for button in mg.currentScreen.button_list:
+                        if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
+                            # get button action and call required method
+                            exit_options = call_button_function(button)
+                            break
+                    runningContinue = False
 
         pygame.display.flip()
 
@@ -192,7 +203,7 @@ while main:
                     for button in mg.currentScreen.button_list:
                         if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
                             # get button action and call required method
-                            call_button_function(button.button_action)
+                            call_button_function(button)
                             break
         pygame.display.flip()
 
@@ -359,7 +370,7 @@ while main:
                         for button in mg.currentScreen.button_list:
                             if pygame.Rect.collidepoint(button.rect, pygame.mouse.get_pos()):
                                 # get button action and call required method
-                                call_button_function(button.button_action)
+                                call_button_function(button)
                                 break
                         runningGameOver = False
 

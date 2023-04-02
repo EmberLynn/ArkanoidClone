@@ -28,7 +28,7 @@ class ContinueScreen(BaseScreen):
         self.button_list = []
 
         # continue button
-        continue_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+100), (77, 148, 255), "Continue?", (0,0,0), buttonfont, "")
+        continue_button = Button(200, 60, ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2)+100), (77, 148, 255), "Continue?", (0,0,0), buttonfont, "continue")
         self.button_list.append(continue_button)
 
     def update(self, level_num, player_score, boon_handler, boon_number):

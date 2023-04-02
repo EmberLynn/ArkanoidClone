@@ -15,3 +15,4 @@ class MainGame:
         self.boonHandler = None
         self.playerScore = 0
         self.displayScore = 0
+        self.boon_name = ""
